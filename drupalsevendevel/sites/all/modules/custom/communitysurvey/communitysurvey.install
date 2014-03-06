@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * @file
+ * 
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function communitysurvey_schema() {
+    $schema = array();
+    $schema['communitysurvey'] = array(
+        'description' => 'Table for Storing Users Survey Details',
+        'fields' => array(
+            'id' => array(
+                'type' => 'serial',
+                'description' => 'Auto increment id',
+                'unsigned' => TRUE,
+                'not null' => FALSE,
+            ),
+            'uid' => array(
+                'type' => 'varchar',
+                'length' => 11,
+                //'not null' => TRUE,
+                'description' => 'User ID',
+            ),
+            'areu_survey' => array(
+                'type' => 'varchar',
+                'length' => 1256,
+                //'not null' => TRUE,
+                'description' => 'areu_survey',
+            ),
+            'industry_survey' => array(
+                'type' => 'varchar',
+                'length' => 1256,
+                //'not null' => TRUE,
+                'description' => ' industry_survey',
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+
+    return $schema;
+}

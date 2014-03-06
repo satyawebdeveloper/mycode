@@ -1,0 +1,52 @@
+<?php
+
+
+function textfieldautocomplete_menu() {
+	$items['example/autocomplete'] = array(
+			'page callback' => '_module_name_autocomplete',
+			'access arguments' => array('access example autocomplete'),
+			'type' => MENU_CALLBACK
+	);
+	return $items;
+}
+
+
+function textfieldautocomplete_form() {
+	$form = array();
+
+	$form['city'] = array(
+			'#title' => t('City'),
+			'#type' => 'textfield',
+			'#autocomplete_path' => 'example/autocomplete',
+	);
+
+	$form['submit'] = array(
+			'#type' => 'submit',
+			'#value' => 'Save',
+	);
+
+	return $form;
+}
+
+
+function _module_name_autocomplete($string) {
+	$matches = array();
+
+	// Some fantasy DB table which holds cities
+	$query = db_select('cities', 'c');
+
+	// Select rows that match the string
+	$return = $query
+	->fields('c', array('city'))
+	->condition('c.city', '%' . db_like($string) . '%', 'LIKE')
+	->range(0, 10)
+	->execute();
+
+	// add matches to $matches
+	foreach ($return as $row) {
+		$matches[$row->city] = check_plain($row->city);
+	}
+
+	// return for JS
+	drupal_json_output($matches);
+}

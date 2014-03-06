@@ -1,0 +1,126 @@
+<?php
+function tabledemopagination_menu() {
+	$items = array ();
+	$items ['tabledemopagination'] = array (
+			'title' => 'Users',
+			'page callback' => 'tabledemopaginationpage',
+			'access arguments' => array (
+					'access content' 
+			) 
+	);
+	
+	return $items;
+}
+function tabledemopaginationpage() {
+	//return fun1();
+	
+	return fun2(2);
+	
+   
+}
+
+
+function fun2($a){
+	// Select table
+	$query = db_select("users", "r");
+	// Select fields
+	//$query->fields("r", array("name", "type", "filename", "module", "weight"));
+	$query->fields("r");
+	// For pagination
+	$query = $query->extend('TableSort')->extend('PagerDefault')->limit($a);
+	
+	
+	// Execute query
+	$result = $query->execute();
+	
+	
+	// Prepare table header
+	$header = array('uid', 'Name', 'Mail', 'TimeZone', 'Created');
+	
+	
+	$rows = array();
+	
+	
+	// Looping for filling the table rows
+	while($data = $result->fetchObject()){
+		// Fill the table rows
+		$rows[] = array(
+				$data->uid,
+				$data->name,
+				$data->mail,
+				$data->timezone,
+				$data->created
+		);
+	}
+	
+	
+	// Output of table with the paging
+	$output = theme_table(
+			array(
+					"header" => $header,
+					"rows" => $rows,
+					"attributes" => array(),
+					"sticky" => true, // Table header will be sticky
+					"caption" => "",
+					"colgroups" => array(),
+					"empty" => t("Table has no row!") // The message to be displayed if table is empty
+			)
+	).theme("pager");
+	
+	return	$output;
+}
+
+
+function fun1(){
+	
+	// Select table
+	$query = db_select("users", "r");
+	// Select fields
+	//$query->fields("r", array("name", "type", "filename", "module", "weight"));
+	$query->fields("r");
+	// For pagination
+	$query = $query->extend('TableSort')->extend('PagerDefault')->limit(50);
+	
+	
+	// Execute query
+	$result = $query->execute();
+	
+	
+	// Prepare table header
+	$header = array('uid', 'Name', 'Mail', 'TimeZone', 'Created');
+	
+	
+	$rows = array();
+	
+	
+	// Looping for filling the table rows
+	while($data = $result->fetchObject()){
+		// Fill the table rows
+		$rows[] = array(
+				$data->uid,
+				$data->name,
+				$data->mail,
+				$data->timezone,
+				$data->created
+		);
+	}
+	
+	
+	// Output of table with the paging
+	$output = theme_table(
+			array(
+					"header" => $header,
+					"rows" => $rows,
+					"attributes" => array(),
+					"sticky" => true, // Table header will be sticky
+					"caption" => "",
+					"colgroups" => array(),
+					"empty" => t("Table has no row!") // The message to be displayed if table is empty
+			)
+	).theme("pager");
+	
+	return	$output;
+}
+?>
+
+

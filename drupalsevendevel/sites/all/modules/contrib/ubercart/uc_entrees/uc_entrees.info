@@ -1,0 +1,16 @@
+name = Attribute Entrees
+description = Manages Attribute Entrees of uc products.
+dependencies[] = uc_product
+package = Ubercart - extra
+core = 7.x
+
+
+
+configure = admin/store/settings/entrees
+
+; Information added by drupal.org packaging script on 2013-07-11
+version = "7.x-3.5"
+core = "7.x"
+project = "ubercart"
+datestamp = "1373562071"
+

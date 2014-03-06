@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * Implements hook_schema()
+ */
+function employee_schema() {
+    $schema = array();
+
+    $schema['employee_tbl'] = array(
+        'fields' => array(
+            'eno' => array(
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'name' => array(
+                'description' => '',
+                'type' => 'varchar',
+                'length' => 255,
+                'default' => '',
+            ),
+            'salary' => array(
+                'description' => '',
+                'type' => 'varchar',
+                'length' => 255,
+                'default' => '',
+            ),
+            'address' => array(
+                'description' => '',
+                'type' => 'varchar',
+                'length' => 255,
+                'default' => '',
+            ),
+            
+            
+        ),
+        'primary key' => array('eno'),
+    );
+
+    return $schema;
+}

@@ -1,0 +1,5 @@
+name = View Form
+description = An example of creating Forms with Views
+package = Example
+files[] = views/view_form_field_handler_title_edit.inc
+core = 7.x

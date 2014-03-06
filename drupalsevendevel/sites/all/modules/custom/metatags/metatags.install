@@ -1,0 +1,52 @@
+
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+
+/*
+ * Meta Tags 1. name 2. description 3. author 4. page refresh 5. keywords
+ */
+function metatags_schema() {
+	$schema = array ();
+	
+	$schema ['metatags'] = array (
+			'description' => 'Metatags',
+			'fields' => array (
+					'id' => array (
+							'type' => 'serial',
+							'unsigned' => TRUE,
+							'not null' => TRUE 
+					),
+					'reference_id' => array (
+							'description' => 'Reference ID',
+							'type' => 'int',
+							'unsigned' => TRUE 
+					),
+					'keywords' => array (
+							'type' => 'text',
+							'size' => 'medium' 
+					),
+					'author' => array (
+							'type' => 'varchar',
+							'length' => 255 
+					),
+					'description' => array (
+							'type' => 'varchar',
+							'length' => 255 
+					),
+					'http_equiv' => array (
+							'description' => 'Page Refresh',
+							'type' => 'int',
+							'unsigned' => TRUE 
+					) 
+			),
+			'primary key' => array (
+					'id' 
+			) 
+	);
+	
+	return $schema;
+}
+

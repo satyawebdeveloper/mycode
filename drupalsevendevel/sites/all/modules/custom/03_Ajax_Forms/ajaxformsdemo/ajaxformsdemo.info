@@ -1,0 +1,4 @@
+name = Ajax Forms Demo
+description = ajax form demos
+core = 7.x
+package = 03_Ajax_Forms (SATYA)

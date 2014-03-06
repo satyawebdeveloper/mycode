@@ -1,0 +1,30 @@
+<?php
+
+function themetable_menu() {
+    $items = array();
+    $items['themetabledemo'] = array(
+        'title' => 'Hello World',
+        'page callback' => 'themetablepage',
+        'access arguments' => array('access content'),
+    );
+
+
+    return $items;
+}
+
+function themetablepage() {
+    $header = array();
+$rows = array();
+
+$header[] = array("data" => "Column Header Title 1");
+$header[] = array("data" => "Column Header Title 2");
+
+$row[] = "Row Column 1 Data"; 
+$row[] = "Row Column 2 Data";
+
+$rows = array();
+$rows[] = $row;
+$html = theme('table', array('header' => $header, 'rows' => $rows));
+
+return $html;
+}

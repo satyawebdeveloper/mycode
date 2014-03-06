@@ -1,0 +1,101 @@
+<?php
+
+/*
+ * Implements hook_menu()
+ */
+function form_search_theme_table_menu() {
+	$items = array ();
+	$items ['formsearchone'] = array (
+			'title' => 'Form Demo',
+			'page callback' => 'formsearchthemetable',
+			'access arguments' => array ( 'access content' ),
+	);
+	
+	return $items;
+}
+
+
+function formsearchthemetable(){
+	return drupal_get_form ( 'formsearchthemetable_form' );
+}
+
+
+function formsearchthemetable_form($form, &$form_state){
+	//$form=array();
+	
+	if(isset($form_state['values']['option'])){
+		$_SESSION ['option']=$form_state['values']['option'];
+	}
+	$form['option']=array(
+		'#type'=>'select',
+		'#options' => array('all' => 'All', 'male' => 'Male','female'=>'Female'),
+		'#default_value' => isset($_SESSION['option']) ? $_SESSION['option'] : '',
+	);
+	
+	$form['btn']=array(
+		'#type'=>'submit',
+		'#value'=>'Go',
+	);
+	
+	
+	//Theme Table Starts here
+	$output = '';
+	// Table header
+	$header = array(
+			array('data' => 'sid', 'field' => 'sid'),
+			array('data' => 'sname', 'field' => 'sname'),
+	
+	);
+	
+	$query = db_select("students", "n");
+	$query->fields('n');
+	$query = $query->extend('TableSort')->extend('PagerDefault')->limit(5);
+	
+	
+	
+	
+	if (isset ( $_SESSION ['option'] )) {
+		if ($_SESSION ['option'] == "male") {
+			$query->condition ( 'gender', 'm', '=' );
+		} else if ($_SESSION ['option'] == "female") {
+			$query->condition ( 'gender', 'f', '=' );
+		} else {
+		}
+	}
+	
+	
+	$result = $query->execute();
+	while ($data = $result->fetchObject()) {
+		$rows[] = array(
+				$data->sid,
+				$data->sname,
+		);
+	}
+	$output .= theme_table(
+			array(
+					'header' => $header,
+					'rows' => $rows,
+					'attributes' => array('class' => array('')),
+					'sticky' => true,
+					'caption' => '',
+					'colgroups' => array(),
+					'empty' => t("No Records!"), //The message to be displayed if table is empty
+			)
+	) . theme('pager');
+	
+	$output .= '</div>';
+	
+	$form['studentslist']=array(
+		'#type'=>'markup',
+		'#markup'=>$output
+	);
+	
+	
+	return $form;
+}
+
+
+function formsearchthemetable_form_validate($form, &$form_state){
+	$form_state['rebuild'] = TRUE;
+	
+}

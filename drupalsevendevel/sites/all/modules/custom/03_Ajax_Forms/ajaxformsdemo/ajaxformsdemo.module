@@ -1,0 +1,77 @@
+<?php
+
+/*
+ * implements hook_menu()
+ */
+function ajaxformsdemo_menu(){
+	$items = array();
+    $items['addmorebtnaction'] = array(
+        'title' => 'Add More Button Action',
+        'page callback' => 'addmorebtnactionpage',
+        'access arguments' => array('access content'),
+        'file' => 'includes/addmorebtnaction.inc',
+    );
+	
+	
+	  $items['dropdownbtnaction'] = array(
+        'title' => 'Add More Button Action',
+        'page callback' => 'dropdownbtnactionpage',
+        'access arguments' => array('access content'),
+        'file' => 'includes/dropbtnaction.inc',
+    );
+	
+	
+	return $items;
+}
+
+// 
+// function mymodule_ajax_callback($form, $form_state) {
+    // return $form['city'];
+// }
+// 
+// function buyTickets_form($form, &$form_state) {
+// 
+    // $query = db_query("select TEID, name from NBA");
+    // $result = $query->fetchAllKeyed(0,1);
+// 
+    // $form['city'] = array(
+        // '#type' => 'select',
+        // '#title' => t('City'),
+        // '#options' => array(
+            // 0 => t('test0'),
+            // 1 => t('test1'),
+        // ),
+        // '#ajax' => array(
+            // 'event' => 'change',
+            // 'wrapper' => 'squadron-wrapper',
+            // 'callback' => 'mymodule_ajax_callback',
+            // 'method' => 'replace',
+        // ),
+    // );
+// 
+    // // Get the value of the 'city' field.
+    // $city = isset($form_state['values']['city']) ? $form_state['values']['city'] : 0;
+    // switch ($city) {
+        // case 0:
+            // $squadron_options = array(
+                // 0 => t('text1'),
+                // 1 => t('text1')
+            // );
+        // break;
+        // case 1:
+            // $squadron_options = array(
+                // 0 => t('text2'),
+                // 1 => t('text2')
+            // );
+        // break;
+    // }
+// 
+    // $form['squadron_wrapper'] = array('#prefix' => '<div class="squadron-wrapper">', '#suffix' => '</div>');        
+    // $form['squadron_wrapper']['squadron'] = array(
+      // '#type' => 'select',
+      // '#title' => t('Squadron'),
+      // '#options' => $squadron_options,
+    // );      
+    // return $form;
+// 
+// }

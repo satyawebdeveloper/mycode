@@ -1,0 +1,99 @@
+<?php
+
+//http://geoff.com.au/content/creating-ajax-link-drupal
+function mymoduleone_menu() {
+	$items = array();
+
+	$items['mymoduleone/link'] = array(
+			'title' => 'Test AJAX Linking',
+			'page callback' => "mymoduleone_link",
+			'access callback' => TRUE,
+			'type' => MENU_NORMAL_ITEM,
+	);
+
+	$items['mymoduleone/link/callback'] = array(
+			'title' => 'Test AJAX Linking Callback/Response',
+			'page callback' => "mymoduleone_link_callback",
+			'access callback' => TRUE,
+			'type' => MENU_CALLBACK,
+	);
+	
+	$items['mymoduleone/link/callback/%/%'] = array(
+			'title' => 'Test',
+			'page callback' => "mymoduleone_link_callback",
+			'page arguments' => array(
+					3,
+					4
+			),
+			'access callback' => TRUE,
+			'type' => MENU_CALLBACK,
+	);
+	
+
+	return $items;
+}
+
+// function mymoduleone_link_callback($type = 'ajax') {
+// 	if ($type == 'ajax') {
+// 		$output = t("This is some content delivered via AJAX");
+// 		$commands = array();
+// 		$commands[] = ajax_command_append('#messagediv', $output);
+// 		$page = array(
+// 				'#type' => 'ajax',
+// 				'#commands' => $commands
+// 		);
+// 		ajax_deliver($page);
+// 	}
+// 	else {
+// 		$output = t("This is some content delivered via a page load.");
+// 		return $output;
+// 	}
+// }
+
+
+// function mymoduleone_link() {
+// 	drupal_add_library('system', 'drupal.ajax');
+// 	$linkwith = l(t('With'), 'mymoduleone/link/callback/nojs/', array('attributes' => array('class' => array('use-ajax'))));
+// 	$linkwithout = l(t('Without'), 'mymoduleone/link/callback/nojs/');
+// 	return "{$linkwith} {$linkwithout}<pre id=\"messagediv\">HERE</pre>";
+// }
+
+
+function mymoduleone_link() {
+	drupal_add_library('system', 'drupal.ajax');
+
+	$value1 = 6;
+	$value2 = 7;
+
+	$linkwith = l(t('With'), 'mymoduleone/link/callback/' . $value1 . '/' . $value2 . '/nojs/', array('attributes' => array('class' => array('use-ajax'))));
+	$linkwithout = l(t('Without'), 'mymoduleone/link/callback/' . $value1 . '/' . $value2 . '/nojs/');
+
+	return "{$linkwith} {$linkwithout}<pre id=\"messagediv\">HERE</pre>";
+}
+
+
+
+
+function mymoduleone_link_callback($value1, $value2, $type = 'ajax') {
+	if ($type == 'ajax') {
+		$output = t("This is some content delivered via AJAX :v1, :v2", array(
+				":v1" => $value1,
+				":v2" => $value2,
+		));
+		$commands = array();
+		$commands[] = ajax_command_append('#messagediv', $output);
+		$page = array(
+				'#type' => 'ajax',
+				'#commands' => $commands
+		);
+		ajax_deliver($page);
+	}
+	else {
+		$output = t("This is some content delivered via a page load :v1, :v2", array(
+				":v1" => $value1,
+				":v2" => $value2,
+		));
+		return $output;
+	}
+}
+

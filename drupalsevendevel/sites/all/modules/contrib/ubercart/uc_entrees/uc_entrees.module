@@ -1,0 +1,100 @@
+<?php
+
+/**
+ * @file
+ * Allow ubercart products to have stock levels associated with their SKU
+ *
+ * uc_entrees enables ubercart to manage stock for products. Store admins can set
+ * the stock levels on a product edit page and a threshold for each SKU value
+ * When that threshold is reached admins can be optionally notified about the
+ * current stock level. Store admins can view all stock levels in the reports
+ * section of Ubercart.
+ *
+ * Development sponsored by the Ubercart project. http://www.ubercart.org
+ */
+
+
+/**
+ * Implements hook_help().
+ */
+function uc_entrees_help($path, $arg) {
+  switch ($path) {
+    case 'node/%/edit/enhancements':
+      return '<p>' . t('The Product Enhancements') . '</p>';
+  
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function uc_entrees_menu() {
+  $items = array();
+
+  $items['admin/store/settings/entrees'] = array(
+    'title' => 'Product Attribute Entrees',
+    'description' => 'Product Attribute Entrees.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('uc_entrees_settings_form'),
+    'access arguments' => array('administer product Attribute Entrees'),
+    'file' => 'uc_entrees.admin.inc',
+  );
+  
+  $items['node/%node/edit/entrees'] = array(
+    'title' => 'Entrees',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('uc_entrees_edit_form', 1),
+    'access callback' => 'uc_entrees_product_access',
+    'access arguments' => array(1),
+    'weight' => 10,
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'uc_entrees.admin.inc',
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_admin_paths().
+ */
+function uc_entrees_admin_paths() {
+  $paths = array(
+    'node/*/edit/entrees' => TRUE,
+  );
+
+  return $paths;
+}
+
+/**
+ * Access callback for node/%node/edit/stock.
+ */
+function uc_entrees_product_access($node) {
+  if ($node->type == 'product_kit') {
+    return FALSE;
+  }
+  return uc_product_is_product($node) && node_access('update', $node);
+//  return uc_product_is_product($node) && node_access('update', $node) && user_access('administer product Entrees');
+}
+
+/**
+ * Implements hook_permission().
+ */
+function uc_entrees_permission() {
+  return array(
+    'administer product Attribute Entrees' => array(
+      'title' => t('Administer product entress'),
+    )
+  );
+}
+
+/**
+ * Implements hook_theme().
+ */
+function uc_entrees_theme() {
+  return array(
+    'uc_entrees_edit_form' => array(
+      'render element' => 'form',
+      'file' => 'uc_entrees.admin.inc',
+    ),
+  );
+}
+

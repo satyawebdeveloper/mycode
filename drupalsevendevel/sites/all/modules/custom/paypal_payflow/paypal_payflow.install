@@ -1,0 +1,24 @@
+
+<?php
+
+/*
+ * need to develop schema file
+CREATE TABLE `paypal_payflow_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `orderid` int(11) DEFAULT NULL,
+  `firstname` varchar(255) DEFAULT NULL,
+  `lastname` varchar(255) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `orderdate` datetime DEFAULT NULL,
+  `payment_status` varchar(255) DEFAULT NULL,
+  `amount` double DEFAULT NULL,
+  `securetoken` varchar(255) DEFAULT NULL,
+  `securetokenid` varchar(255) DEFAULT NULL,
+  `invoiceid` varchar(255) DEFAULT NULL,
+  `payfloworderid` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+ 
+ 
+ 
+ */

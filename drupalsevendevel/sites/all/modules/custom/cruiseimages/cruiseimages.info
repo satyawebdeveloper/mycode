@@ -1,0 +1,8 @@
+name = cruiseimages
+core = 7.x
+description = cruiseimages
+files[] = cruiseimages.controller.inc
+files[] = cruiseimages.module
+files[] = cruiseimages.form.inc
+files[] = cruiseimages.form.install
+

@@ -1,0 +1,55 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the uc_enhancements module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function uc_enhancements_schema() {
+  $schema = array();
+
+  $schema['uc_product_enhancements'] = array(
+    'description' => 'Enhancements for Ubercart products.',
+   
+        
+        'fields' => array(
+            'id' => array(
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+        
+        
+      'nid' => array(
+        'description' => 'Node ID of a product.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'productenhancements' => array(
+        'type' => 'blob',
+        'not null' => FALSE,
+        'size' => 'big',
+        'serialize' => TRUE,
+        'description' => 'A serialized object contains of Product Enhancements.',
+      ),
+     
+    ),
+     'primary key' => array('id'),
+    
+    
+  );
+
+  return $schema;
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function uc_enhancements_uninstall() {
+ 
+}

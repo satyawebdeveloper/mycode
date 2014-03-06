@@ -1,0 +1,46 @@
+<?php
+function filesavetest_menu() {
+	$items = array ();
+	$items ['filesavetest'] = array (
+			'title' => 'Hello World',
+			'page callback' => 'filesavetestpage',
+			'access arguments' => array (
+					'access content' 
+			) 
+	);
+	
+	return $items;
+}
+function filesavetestpage() {
+	return drupal_get_form ( "myform_form" );
+}
+function myform_form($form, &$form_state) {
+	$form['img1'] = array(
+    '#name' => 'files[img_1]',
+    '#type' => 'file',
+    '#title' => t('Choose a picture'),
+    '#size' => 22,
+    '#description' => t('Upload a small image'),
+    );
+	
+	$form['submit']=array(
+		'#type'=>'submit',
+		'#value'=>'upload'
+	);
+	return $form;
+}
+function myform_form_validate($form_id, $form_values) {
+}
+function myform_form_submit($form_id, $form_values) {
+	
+	//handle file uploading
+$validators = array(
+//    'file_validate_is_image' => array(),
+//    'file_validate_image_resolution' => array(variable_get('btn_dimensions', '124x124')),
+//    'file_validate_size' => array(variable_get('btn_file_size', '5') * 1024),
+);
+
+//save file as temporary
+$file = file_save_upload('img_1', $validators);
+}
+?>

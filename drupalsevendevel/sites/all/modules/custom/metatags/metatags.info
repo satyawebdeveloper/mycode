@@ -1,0 +1,5 @@
+name = Meta Tags
+core = 7.x
+description = Handle Meta tags for Website.
+version = VERSION
+package = WWC

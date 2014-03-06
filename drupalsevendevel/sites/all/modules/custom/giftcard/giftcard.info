@@ -1,0 +1,8 @@
+name = giftcard
+core = 7.x
+description = giftcard
+files[] = giftcard.controller.inc
+files[] = giftcard.module
+files[] = giftcard.form.inc
+files[] = giftcard.form.install
+

@@ -1,0 +1,88 @@
+<?php
+
+class MetaTag {
+	public $id;
+	public $reference_id;
+	public $keywords;
+	public $author;
+	public $description;
+	public $http_equiv;
+	public $tablename = "metatags";
+	
+	
+	public static function checkMetainfoExistence($reference_id){
+		$result='';
+		try{
+		$query = db_select ( 'metatags', 'm' );
+		$query->fields ( 'm',array('id') );
+		$query->condition ( 'm.reference_id', $reference_id );
+		$result = $query->execute()->fetchField();
+		}catch(Exception $e){
+			watchdog("Error in selecting metatags table", $e);
+		}
+		
+		return $result;
+	}
+	
+	
+	
+	
+	// Store Metatag information
+	public static function  storeMetaTags($metaObj) {
+		try {
+			drupal_write_record ( 'metatags', $metaObj );
+		} catch ( Exception $e ) {
+			watchdog ( "Error (insertion or updation operation) in Metatags Table", $e );
+		}
+	}
+	// Get Metatag information by Reference ID (Cruise ID)
+	public static function getMetaTagsByID($reference_id) {
+		$result = false;
+		try {
+			$query = db_select ( 'metatags', 'm' );
+			$query->fields ( 'm' );
+			$query->condition ( 'm.reference_id', $reference_id );
+			$result = $query->execute ()->fetchObject ();
+		} catch ( Exception $e ) {
+			watchdog ( 'metatags', $e );
+		}
+		return $result;
+	}
+	
+	// Set Meta Tag by Description
+	public static function setMetaTagByDescription($reference_id) {
+		$metaObj = MetaTag::getMetaTagsByID ( $reference_id );
+		$description = isset ( $metaObj ) ? $metaObj->keywords : '';
+		
+		$meta_description = array(
+				'#type' => 'html_tag',
+				'#tag' => 'meta',
+				'#attributes' => array (
+						'name' => 'description',
+						'content' => $description, 
+				) 
+		);
+		drupal_add_html_head( $meta_description, 'meta_description' );
+	}
+	
+	// Set Meta Tag by Author
+	public static function setMetaTagByAuthor($reference_id) {
+	}
+	
+	// Set Meta Tag by Keywords
+	public static function setMetaTagByKeywords($reference_id) {
+		$metaObj = MetaTag::getMetaTagsByID ( $reference_id );
+		$keyWords = isset ( $metaObj ) ? $metaObj->keywords : '';
+		$meta_keywords = array (
+				'#type' => 'html_tag',
+				'#tag' => 'meta',
+				'#attributes' => array (
+						'name' => 'keywords',
+						'content' => $keyWords 
+				) 
+		);
+		drupal_add_html_head ( $meta_keywords, 'meta_keywords' );
+	}
+}
+
+

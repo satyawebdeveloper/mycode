@@ -1,0 +1,4 @@
+name= FileUpload demo
+description = Hello World
+core=7.x
+;package = 01_Basic_Programs (SATYA)

@@ -1,0 +1,68 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the uc_entrees module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function uc_entrees_schema() {
+  $schema = array();
+
+  $schema['uc_attribute_entrees'] = array(
+    'description' => 'Creating the Ubercart Product Attribute Entrees.',
+      'fields' => array(
+            'id' => array(
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+    
+          'productnode' => array(
+        'description' => 'Node ID of a product.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+          
+      'atrrid' => array(
+        'description' => 'Attribute ID of a product.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'attributeentrees' => array(
+        'type' => 'blob',
+        'not null' => FALSE,
+        'size' => 'big',
+        'serialize' => TRUE,
+        'description' => 'A serialized object contains of Product Attribute Entreess.',
+      ),
+          
+          'created' => array(
+              'description' => 'The Object created date and time',
+              'type' => 'varchar',
+              'length' => 255,
+              'not null' => TRUE,
+              'default' => '',
+          ),
+     
+    ),
+     'primary key' => array('id'),
+    
+    
+  );
+
+  return $schema;
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function uc_entrees_uninstall() {
+ 
+}

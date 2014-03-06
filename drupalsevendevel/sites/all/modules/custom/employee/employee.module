@@ -1,0 +1,43 @@
+<?php
+
+/**
+ * Implements hook_entity_info().
+ */
+function employee_entity_info() {
+    $employee_info['employee'] = array(
+        'controller class' => 'EmpController',
+                '
+                    table' => 'employee_tbl',
+        'entity keys' => array(
+            'id' => 'eno',
+        ),
+    );
+    return $employee_info;
+}
+
+class EmpController extends DrupalDefaultEntityController {
+
+    public function save($emp) {
+        if ($emp->eno) {
+            drupal_write_record('employee_tbl', $emp, array('eno'));
+        } else {
+            drupal_write_record('employee_tbl', $emp);
+        }
+        return $emp;
+    }
+
+    public function delete($eno) {
+        db_delete('employee_tbl')
+                ->condition('eno', $eno, '=')
+                ->execute();
+    }
+
+}
+
+function employee_save(&$emp) {
+    return entity_get_controller('employee')->save($emp);
+}
+
+function employee_delete($id) {
+    return entity_get_controller('employee')->delete($id);
+}

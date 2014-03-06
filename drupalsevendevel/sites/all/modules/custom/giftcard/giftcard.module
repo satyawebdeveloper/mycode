@@ -1,0 +1,338 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function giftcard_menu() {
+
+    //Gift Card Table List View
+    $items['giftcard'] = array(
+        'title' => 'Gift Card',
+        'page callback' => 'giftcard_list_view',
+        'access arguments' => array('view giftcard entity'),
+    );
+
+    //Adding New Card
+    $items['giftcard/add'] = array(
+        'title' => 'Add Gift Card',
+        'page callback' => 'giftcard_add',
+        'access arguments' => array('create giftcard entities'),
+        'file' => 'giftcard.form.inc',
+    );
+
+    //Edit Gift Card
+    $items['giftcard/%giftcard/edit'] = array(
+        'title' => 'Edit',
+        'load arguments' => array('giftcard'),
+        'type' => MENU_LOCAL_TASK,
+        'page callback' => 'giftcard_item_edit',
+        'access arguments' => array('edit giftcard entities'),
+        'page arguments' => array(1),
+        'file' => 'giftcard.form.inc',
+    );
+
+    //Delete Gift Card
+    $items['giftcard/%/delete'] = array(
+        'page callback' => 'giftcard_item_delete',
+        'access arguments' => array('delete giftcard entities'),
+        'page arguments' => array(1),
+        'file' => 'giftcard.form.inc',
+    );
+
+    //Manage Gift Card through Admin Panel
+    $items['admin/structure/giftcard/manage'] = array(
+        'title' => 'Gift Card',
+        'description' => 'Manage Gift Card',
+        'page callback' => 'giftcard_admin_page',
+        'access arguments' => array('administer Request Quote entities'),
+    );
+    return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function giftcard_permission() {
+    return array(
+        'administer giftcard entities' => array(
+            'title' => t('Administer giftcard entities'),
+            'restrict access' => TRUE,
+        ),
+        'view giftcard entities' => array(
+            'title' => t('View giftcard Entities'),
+        ),
+        'create giftcard entities' => array(
+            'title' => t('Create giftcard Entities'),
+        ),
+        'delete giftcard entities' => array(
+            'title' => t('Delete giftcard Entities'),
+        ),
+    );
+}
+
+/**
+ * Implements hook_entity_info().
+ */
+function giftcard_entity_info() {
+    $giftcard_info['giftcard'] = array(
+        'label' => 'GiftCard',
+        'controller class' => 'GiftcardController',
+        'base table' => 'giftcard',
+        'uri callback' => 'giftcard_uri',
+        'fieldable' => TRUE,
+        'entity keys' => array(
+            'id' => 'id',
+        ),
+        'static cache' => TRUE,
+        'bundles' => array(
+            'giftcard_bundle' => array(
+                'label' => 'giftcard',
+                'admin' => array(
+                    'path' => 'admin/structure/giftcard/manage',
+                    'access arguments' => array('administer giftcard entities'),
+                ),
+            ),
+        ),
+        'view modes' => array(
+            'full' => array(
+                'label' => t('Full'),
+                'custom settings' => FALSE,
+            ),
+        )
+    );
+    return $giftcard_info;
+}
+
+function giftcard_page_title($giftcard) {
+    return 'Gift Card';
+}
+
+function giftcard_load($id = NULL, $reset = FALSE) {
+    $ids = (isset($id) ? array($id) : array());
+    $giftcard = giftcard_load_multiple($ids, array(), $reset);
+    return $giftcard ? reset($giftcard) : FALSE;
+}
+
+function giftcard_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
+    return entity_load('giftcard', $ids, $conditions, $reset);
+}
+
+function giftcard_uri($giftcard) {
+    return array(
+        'path' => 'giftcard/' . $giftcard->id,
+    );
+}
+
+function giftcard_item_delete($id) {
+    $msg = '';
+    try {
+        giftcard_delete($id);
+        $msg = 'Gift Card Deleted Successfully.';
+    } catch (Exception $e) {
+        $msg = 'Operation Failed.';
+    }
+    drupal_set_message($msg);
+    drupal_goto('admin/structure/giftcard/manage');
+}
+
+function giftcard_admin_page() {
+//$output = 'Admin page for giftcard entities.<br/>';
+    $output = '';
+    $output .= '<a href="' . base_path() . 'giftcard/add">Add Giftcard</a>';
+
+    $output.=giftcard_list_view();
+
+    return $output;
+}
+
+function giftcard_list_view() {
+    $output = '';
+    $header = array(
+        array('data' => 'Id', 'field' => 'id'),
+        array('data' => 'Card ID', 'field' => 'card_id'),
+        array('data' => 'Status'),
+        array('data' => 'Created'),
+        array('data' => 'Actions'),
+    );
+    if (isset($_GET['sort']) && isset($_GET['order'])) {
+        if ($_GET['sort'] == 'asc')
+            $sort = 'ASC';
+        else
+            $sort = 'DESC';
+
+        switch ($_GET['order']) {
+            case 'Id':
+                $order = 'id';
+                break;
+            case 'Card ID':
+                $order = 'card_id';
+                break;
+        }
+    } else {
+        $sort = 'ASC';
+        $order = 'id';
+    }
+
+
+    $query = db_select("giftcard", "n");
+    $query->fields('n', array('id', 'card_id', 'created', 'flag'));
+    $query->orderBy($order, $sort);
+    $query = $query->extend('TableSort')->extend('PagerDefault')->limit(5);
+    $result = $query->execute()->fetchAll();
+
+    //var_dump($result[0]->card_id);
+    //exit();
+
+    global $base_url;
+    $rows = array();
+    if (count($result) > 0) {
+        for ($i = 0; $i < count($result); $i++) {
+
+            $createddate = $result[$i]->created != '' ? date('Y-m-d', $result[$i]->created) : "";
+            // $d=$result[$i]->created!='' ? 
+            $rows[] = array(
+                $result[$i]->id,
+                $result[$i]->card_id,
+                $result[$i]->flag,
+                $createddate,
+                '<a href="' . $base_url . '/giftcard/' . $result[$i]->id . '/edit">Edit |</a>
+                <a href="' . $base_url . '/giftcard/' . $result[$i]->id . '/delete">Delete</a>'
+            );
+        }
+    }
+
+
+
+
+//        while ($data = $result->fetchObject()) {
+//            if (isset($data)) {
+//                $rows[] = array(
+//                    $data->id,
+//                    $data->card_id,
+//                    $data->flag,
+//                    date('Y-m-d', $data->created),
+//                    '<a href="' . $base_url . '/giftcard/' . $data->id . '/edit">Edit |</a>
+//             <a href="' . $base_url . '/giftcard/' . $data->id . '/delete">Delete</a>'
+//                );
+//            }
+//        }
+//    
+
+
+
+
+
+
+    $output .= '<div class="eventRecordsWrapper">';
+    $output .= '<div class="cruiseEventSearchWrapper">';
+
+    $output .= '</div>';
+    $output .= theme_table(
+                    array(
+                        'header' => $header,
+                        'rows' => $rows,
+                        'attributes' => array('class' => array('')),
+                        'sticky' => true,
+                        'caption' => '',
+                        'colgroups' => array(),
+                        'empty' => t("No Records!"),
+                    )
+            ) . theme('pager');
+
+    $output .= '</div>';
+
+    return $output;
+}
+
+function giftcard_page_view($entity, $view_mode = 'tweaky') {
+
+    // var_dump($entity);
+    $entity_type = 'giftcard';
+    $entity->content = array(
+        '#view_mode' => $view_mode,
+    );
+
+    field_attach_prepare_view($entity_type, array($entity->id => $entity), $view_mode);
+    entity_prepare_view($entity_type, array($entity->id => $entity));
+    $entity->content += field_attach_view($entity_type, $entity, $view_mode);
+    $entity->content['id'] = array(
+        '#type' => 'item',
+        '#title' => t('id'),
+        '#markup' => $entity->id,
+    );
+
+    $entity->content['card_id'] = array(
+        '#type' => 'item',
+        '#title' => t('cardId'),
+        '#value' => $entity->card_id,
+    );
+    global $language;
+    $langcode = $language->language;
+    module_invoke_all('entity_view', $entity, $entity_type, $view_mode, $langcode);
+    drupal_alter(array('userdocuments_view', 'entity_view'), $entity->content, $entity_type);
+    return $entity->content;
+}
+
+function giftcard_item_edit($giftcard) {
+    drupal_set_title(t('<em>Edit Gift Card </em> @title', array('@title' =>
+        '')), PASS_THROUGH);
+    return drupal_get_form('giftcard_add_form', $giftcard);
+}
+
+
+
+function giftcard_field_extra_fields() {
+    $form_elements['id'] = array(
+        'label' => t('id'),
+        'description' => t('Text'),
+        'weight' => -5,
+    );
+
+    $form_elements['card_id'] = array(
+        'label' => t('Card ID'),
+        'description' => t('Text'),
+        'weight' => -5,
+    );
+
+    $display_elements['id'] = array(
+        'label' => t('id'),
+        'description' => t('Text'),
+        'weight' => -5,
+    );
+
+    $display_elements['card_id'] = array(
+        'label' => t('card_id'),
+        'description' => t('Text'),
+        'weight' => -5,
+    );
+
+
+// Since we have only one bundle type, we'll just provide the extra_fields
+// for it here.
+    $extra_fields['giftcard']['giftcard_bundle']['form'] = $form_elements;
+    $extra_fields['giftcard']['giftcard_bundle']['display'] = $display_elements;
+    return $extra_fields;
+}
+
+
+
+function giftcard_save(&$giftcard) {
+    return entity_get_controller('giftcard')->save($giftcard);
+}
+
+function giftcard_delete($id) {
+    return entity_get_controller('giftcard')->delete($id);
+}
+
+function giftcard_status($card_id) {
+    return giftcard_load_multiple($ids = array(), $conditions = array('card_id' => $card_id));
+}
+
+function giftcard_used_list() {
+    return giftcard_load_multiple($ids = array(), $conditions = array('flag' => 1));
+}
+
+function giftcard_unused_list() {
+    return giftcard_load_multiple($ids = array(), $conditions = array('flag' => 0));
+}
+

@@ -1,0 +1,75 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the uc_entrees module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function uc_cruisefees_schema() {
+  $schema = array();
+
+  $schema['uc_cruiseevent_fees'] = array(
+    'description' => 'Creating the Cruise Event Fees.',
+      'fields' => array(
+            'id' => array(
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+    
+          'cruiseeventid' => array(
+        'description' => 'The CruiseEventid taking as ubercart product nodeid',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+          
+      'name' => array(
+        'description' => 'The crusie fee line item name.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'amount' => array(
+        'description' => 'The cruise fee line item rate .',
+        'type' => 'float',
+        'not null' => TRUE,
+        'default' => 0.0,
+      ),
+      
+      'weight' => array(
+        'description' => 'The weight of this line item in relation to other line items.',
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+          
+          'created' => array(
+              'description' => 'The Object created date and time',
+              'type' => 'varchar',
+              'length' => 255,
+              'not null' => TRUE,
+              'default' => '',
+          ),
+     
+    ),
+     'primary key' => array('id'),
+    
+    
+  );
+
+  return $schema;
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function uc_cruisefees_uninstall() {
+ 
+}

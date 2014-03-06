@@ -1,0 +1,16 @@
+name = Pokenlink Community Survey Entity
+description = Used in the Users (CHO and CM) Registration form for storing the user's survey details
+core = 7.x
+version = VERSION
+package = Pokenlink
+files[] = communitysurvey.module
+files[] = communitysurvey.pages.inc
+files[] = communitysurvey.admin.inc
+files[] = communitysurvey.install
+files[] = communitysurvey.controller.inc
+dependencies[] = field_ui
+
+
+;DATE (M/D/Y @ h:m:s): 11 / 3 / 2013 @ 10:0:0 EST
+project = "Pokenlink"
+datestamp = "1383494400"

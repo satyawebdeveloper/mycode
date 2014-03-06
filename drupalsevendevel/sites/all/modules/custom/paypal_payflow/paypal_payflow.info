@@ -1,0 +1,9 @@
+name = PayPal Payments Payflow
+description = PayPal Payflow
+package = PayPal Payflow
+core = 7.x
+
+
+
+
+

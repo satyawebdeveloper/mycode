@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/lsnrepo/!svn/ver/32535/fightersonline/trunk/sites/all/modules/rules/rules_scheduler
+END
+rules_scheduler.install
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/lsnrepo/!svn/ver/32535/fightersonline/trunk/sites/all/modules/rules/rules_scheduler/rules_scheduler.install
+END
+rules_scheduler.admin.inc
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/lsnrepo/!svn/ver/32535/fightersonline/trunk/sites/all/modules/rules/rules_scheduler/rules_scheduler.admin.inc
+END
+rules_scheduler.module
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/lsnrepo/!svn/ver/32535/fightersonline/trunk/sites/all/modules/rules/rules_scheduler/rules_scheduler.module
+END
+rules_scheduler.info
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/lsnrepo/!svn/ver/32535/fightersonline/trunk/sites/all/modules/rules/rules_scheduler/rules_scheduler.info
+END
+rules_scheduler.rules.inc
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/lsnrepo/!svn/ver/32535/fightersonline/trunk/sites/all/modules/rules/rules_scheduler/rules_scheduler.rules.inc
+END
+rules_scheduler.test
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/lsnrepo/!svn/ver/32535/fightersonline/trunk/sites/all/modules/rules/rules_scheduler/rules_scheduler.test
+END

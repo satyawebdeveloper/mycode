@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/lsnrepo/!svn/ver/32771/waterways/trunk/web/sites/all/modules/date/tests
+END
+README.txt
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/lsnrepo/!svn/ver/32771/waterways/trunk/web/sites/all/modules/date/tests/README.txt
+END
+date.test
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/lsnrepo/!svn/ver/32771/waterways/trunk/web/sites/all/modules/date/tests/date.test
+END
+USHolidays.ics
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/lsnrepo/!svn/ver/32771/waterways/trunk/web/sites/all/modules/date/tests/USHolidays.ics
+END
+date_timezone.test
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/lsnrepo/!svn/ver/32771/waterways/trunk/web/sites/all/modules/date/tests/date_timezone.test
+END
+date_validation.test
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/lsnrepo/!svn/ver/32771/waterways/trunk/web/sites/all/modules/date/tests/date_validation.test
+END
+date_api.test
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/lsnrepo/!svn/ver/32771/waterways/trunk/web/sites/all/modules/date/tests/date_api.test
+END
+date_field.test
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/lsnrepo/!svn/ver/32771/waterways/trunk/web/sites/all/modules/date/tests/date_field.test
+END
+Yahoo.csv
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/lsnrepo/!svn/ver/32771/waterways/trunk/web/sites/all/modules/date/tests/Yahoo.csv
+END
+rrule.ics
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/lsnrepo/!svn/ver/32771/waterways/trunk/web/sites/all/modules/date/tests/rrule.ics
+END

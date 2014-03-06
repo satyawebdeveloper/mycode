@@ -1,0 +1,5 @@
+name = my module views
+description = my module views
+core=7.x
+version=VERSION
+dependencies[] = views

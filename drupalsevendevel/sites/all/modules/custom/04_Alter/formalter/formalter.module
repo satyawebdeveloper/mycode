@@ -1,0 +1,56 @@
+<?php
+
+/*
+ * implements hook_menu()
+ */
+function formalter_menu(){
+	$items = array();
+    $items['formalterdemo'] = array(
+        'title' => 'Form Alter Demo',
+        'page callback' => 'formdemopage',
+        'access arguments' => array('access content'),
+    );
+	
+	return $items;
+}
+
+function formdemopage(){
+	return drupal_get_form("formdemo_form");
+	
+}
+
+
+function formdemo_form($form, &$form_state) {
+	//TextBox
+	$form['username'] = array(
+	'#type' => 'textfield', 
+	'#title' => t('User Name'), 
+	'#default_value' => "satya", 
+	'#size' => 60, 
+	'#maxlength' => 128, 
+	'#required' => TRUE, 
+	);
+	return $form;
+}
+
+
+
+function formdemo_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'formdemo_form') {
+    $form['#after_build'][] = 'formalterdemo_form_after_build';
+  }
+}
+
+
+function formalterdemo_form_after_build($form, &$form_state) {
+    
+  
+$form['title'] = array(
+   '#type' => 'textfield', 
+   '#title' => t('Title'), 
+   
+  );
+
+return $form;
+}
+

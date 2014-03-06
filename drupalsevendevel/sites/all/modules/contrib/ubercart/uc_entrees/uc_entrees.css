@@ -1,0 +1,12 @@
+/* 
+    Document   : uc_enhancements.css
+    Created on : Sep 6, 2013, 6:37:47 PM
+    Author     : LSN37
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+li { 
+  list-style: none;
+}
+

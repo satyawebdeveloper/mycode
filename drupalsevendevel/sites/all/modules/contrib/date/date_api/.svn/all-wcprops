@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/lsnrepo/!svn/ver/32771/waterways/trunk/web/sites/all/modules/date/date_api
+END
+date-rtl.css
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/lsnrepo/!svn/ver/32771/waterways/trunk/web/sites/all/modules/date/date_api/date-rtl.css
+END
+date_api.module
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/lsnrepo/!svn/ver/32771/waterways/trunk/web/sites/all/modules/date/date_api/date_api.module
+END
+date_api.info
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/lsnrepo/!svn/ver/32771/waterways/trunk/web/sites/all/modules/date/date_api/date_api.info
+END
+date.css
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/lsnrepo/!svn/ver/32771/waterways/trunk/web/sites/all/modules/date/date_api/date.css
+END
+date_api.install
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/lsnrepo/!svn/ver/32771/waterways/trunk/web/sites/all/modules/date/date_api/date_api.install
+END
+date_api_sql.inc
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/lsnrepo/!svn/ver/32771/waterways/trunk/web/sites/all/modules/date/date_api/date_api_sql.inc
+END
+date_api.admin.inc
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/lsnrepo/!svn/ver/32771/waterways/trunk/web/sites/all/modules/date/date_api/date_api.admin.inc
+END
+date_year_range.js
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/lsnrepo/!svn/ver/32771/waterways/trunk/web/sites/all/modules/date/date_api/date_year_range.js
+END
+date_api_ical.inc
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/lsnrepo/!svn/ver/32771/waterways/trunk/web/sites/all/modules/date/date_api/date_api_ical.inc
+END
+date_api_elements.inc
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/lsnrepo/!svn/ver/32771/waterways/trunk/web/sites/all/modules/date/date_api/date_api_elements.inc
+END

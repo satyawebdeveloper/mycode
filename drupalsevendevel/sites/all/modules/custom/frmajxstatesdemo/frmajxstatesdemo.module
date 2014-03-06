@@ -1,0 +1,51 @@
+<?php
+
+/*
+ * Implements hook_menu()
+ */
+function frmajxstatesdemo_menu() {
+	$items = array ();
+	$items ['frmajxstatesdemo'] = array (
+			'title' => 'Form Demo',
+			'page callback' => 'frmajxstatesdemo',
+			'access arguments' => array ( 'access content' ),
+	);
+	return $items;
+}
+
+
+function frmajxstatesdemo(){
+	return drupal_get_form ( 'trial_registration_form' );
+}
+function trial_registration_form($form, &$form_state) {
+	$form = array();
+	$form['#method'] = 'post';
+	$form['#action'] = url('register.php');
+  	$form['#suffix'] = '<div id="form-register-message"></div>';
+			$form['name'] = array(
+					'#title' => t('Name'),
+					'#type' => 'textfield',
+					'#required' => TRUE,
+			);
+			// submit
+			$form['submit'] = array(
+					'#type' => 'submit',
+					'#value' => t('Submit'),
+					'#ajax' => array(
+							'callback' => 'trial_registration_form_submit',
+							'wrapper' => 'form-register-message'
+					),
+					'#submit' => array('trial_registration_form_submit'),
+			);
+			return $form;
+}
+function trial_registration_form_submit($form, &$form_state) {
+	// create message
+	$content = t('Thank you for registering. An email with login details will be sent to you shortly.');
+	// Process form submission.
+	$commands = array(
+			ajax_command_replace('#form-register-wrapper', $content),
+	);
+	$replace = array('#type' => 'ajax', '#commands' => $commands);
+	return $replace;
+}

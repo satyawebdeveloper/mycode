@@ -1,0 +1,53 @@
+<?php
+
+function basicformsdemo_menu(){
+	$items=array();
+	
+	
+	
+	//Text Field / Textbox
+	$items['textfielddemo'] = array(
+        'title' => 'Textfield/Text',
+        'page callback' => 'textfieldpage',
+        'access arguments' => array('access content'),
+        'file' => 'inc/textfield.inc',
+    );
+	
+	
+	//Textarea
+	$items['textareademo'] = array(
+        'title' => 'Textarea',
+        'page callback' => 'textareademopage',
+        'access arguments' => array('access content'),
+        'file' => 'inc/textarea.inc',
+    );
+	
+	
+	//Checkbox
+	$items['checkboxdemo'] = array(
+        'title' => 'Check Box',
+        'page callback' => 'checkboxdemopage',
+        'access arguments' => array('access content'),
+        'file' => 'inc/checkbox.inc',
+    );
+	
+	
+	//Dropdown
+	$items['selectdemo'] = array(
+        'title' => 'Select',
+        'page callback' => 'selectpage',
+        'access arguments' => array('access content'),
+        'file' => 'inc/select.inc',
+    );
+	
+// 	$form['markup']=array(
+// 			'#type'=>'markup',
+// 			'#markup'=>'text'
+// 	);
+	
+	
+	
+	
+	
+	return $items;
+}

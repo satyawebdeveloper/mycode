@@ -1,0 +1,279 @@
+<?php
+
+/**
+ * @file
+ * Ubercart Fees module.
+ *
+ * Allows Admin  to set Product wise extra charge configuration.
+ *
+ * 
+ */
+
+/**
+ * class
+ * 
+ */
+
+/**
+ * Defines an order object.
+ */
+class UcCruisefees {
+
+  public $id = 0;
+  public $cruiseeventid=0;
+  public $name ='';
+  public $amount = '';
+  public $weight=0;
+  
+
+  /**
+   * Order object constructor.
+   *
+   * @param $uid
+   *   The user ID that owns the order, or a cart ID. Cart IDs are integer
+   *   user IDs for authenticated users, or are strings of 22 characters
+   *   or more for anonymous users.
+   * @param $state
+   *   The initial order state.
+   */
+  function __construct($id) {
+    
+    $this->id =$id;
+ 
+
+}
+}
+//laxmi class ends
+
+/**
+ * Implements hook_help().
+ */
+function uc_cruisefees_help($path, $arg) {
+  switch ($path) {
+    // Help messages for the attributes overview on products and classes.
+    case 'node/%/edit/cruisefees':
+      return '<p>' . t('Add attributes to this product using the <a href="!url">add attributes form</a>. You may then adjust the settings for these attributes on this page and go on to configure their options in the <em>Options</em> tab.', array('!url' => url('node/' . $arg[1] . '/edit/attributes/add'))) . '</p>';
+    case 'admin/store/products/classes/%/attributes':
+      return '<p>' . t('Add attributes to the product class using the <a href="!url">add attributes form</a>. You may then adjust the settings for these attributes on this page and go on to configure their options in the <em>Options</em> tab.', array('!url' => url('admin/store/products/classes/' . $arg[4] . '/attributes/add'))) . '</p>';
+
+    // Help message for adding an attribute to a product or class.
+    case 'node/%/edit/cruisefees/add':
+    case 'admin/store/products/classes/%/cruisefees/add':
+      return '<p>' . t('Select the attributes you want to add and submit the form.') . '</p>';
+
+    
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function uc_cruisefees_menu() {
+  
+ 
+  // Insert subitems into the edit node page for product types.
+  $items['node/%node/edit/cruisefees'] = array(
+    'title' => 'cruisefees',
+    'description' => 'Edit product cruisefees.',
+    'page callback' => 'uc_cruisefees_admin',
+    'page arguments' => array(1),
+    'access callback' => 'uc_cruisefees_product_access',
+    'access arguments' => array(1),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 1,
+    'file' => 'uc_cruisefees.admin.inc',
+  );
+  
+  $items['node/%node/edit/cruisefees/add'] = array(
+    'title' => 'Add an cruisefees',
+    'description' => 'Add an cruisefees to this product.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('uc_cruisefees_form',1),
+    'access callback' => 'uc_cruisefees_product_access',
+    'access arguments' => array(1),
+    'type' => MENU_LOCAL_ACTION,
+    'weight' => 1,
+    'file' => 'uc_cruisefees.admin.inc',
+  );
+  
+  $items['node/%node/edit/cruisefees/%/edit'] = array(
+    'title' => 'Edit an cruisefees',
+    'description' => 'Edit an cruisefees to this product.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('uc_cruisefees_form',1,4),
+    'access callback' => 'uc_cruisefees_product_access',
+    'access arguments' => array(1),
+//    'type' => MENU_LOCAL_ACTION,
+    'weight' => 1,
+    'file' => 'uc_cruisefees.admin.inc',
+  );
+  
+  $items['node/%node/edit/cruisefees/%/delete'] = array(
+    'title' => 'Edit an cruisefees',
+    'description' => 'Edit an cruisefees to this product.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('uc_cruisefees_delete_form',1,4),
+    'access callback' => 'uc_cruisefees_product_access',
+    'access arguments' => array(1),
+//    'type' => MENU_LOCAL_ACTION,
+    'weight' => 1,
+    'file' => 'uc_cruisefees.admin.inc',
+  );
+
+  
+  
+  
+//  $items['admin/store/settings/lineitems/%/delete'] = array(
+//    'title' => 'Delete Line Item',
+//    'page callback' => 'drupal_get_form',
+//    'page arguments' => array('uccustomlineitems_delete_form', 4),
+//    'access arguments' => array('configure lineitems'),
+//    
+//  );
+  return $items;
+}
+
+/**
+ * Implements hook_admin_paths().
+ */
+function uc_cruisefees_admin_paths() {
+  $paths = array(
+    'node/*/edit/cruisefees' => TRUE,
+    'node/*/edit/cruisefees/add' => TRUE,
+    
+  );
+
+  return $paths;
+}
+
+/**
+ * Access callback for editing a product class's attributes and options.
+ */
+
+/**
+ * Access callback for editing a product's attributes.
+ */
+function uc_cruisefees_product_access($node) {
+  if ($node->type == 'product_kit') {
+    return FALSE;
+  }
+  return uc_product_is_product($node) && node_access('update', $node);
+//  return uc_product_is_product($node) && node_access('update', $node) && (user_access('administer cruisefees') || user_access('administer product cruisefees'));
+}
+
+
+
+/**
+ * Implements hook_permission().
+ */
+function uc_cruisefees_permission() {
+  return array(
+    'administer cruisefees' => array(
+      'title' => t('Administer cruisefees'),
+    ),
+    'administer product cruisefees' => array(
+      'title' => t('Administer product cruisefees'),
+    ),
+    
+  );
+}
+
+/**
+ * Implements hook_theme().
+ */
+function uc_cruisefees_theme() {
+  return array(
+   
+    
+    'uc_object_cruisefees_form' => array(
+      'render element' => 'form',
+      'file' => 'uc_cruisefees.admin.inc',
+    ),
+    
+    'uc_product_cruisefees' => array(
+      'render element' => 'cruisefees',
+      'file' => 'uc_cruisefees.admin.inc',
+    ),
+  );
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for uc_product_settings_form().
+ */
+function uc_cruisefees_form_uc_product_settings_form_alter(&$form, &$form_state) {
+  $form['cruisefees'] = array(
+    '#type' => 'fieldset',
+    '#title' => 'Cruisefees settings',
+    '#group' => 'product-settings',
+    '#weight' => -3,
+  );
+  $form['cruisefees']['uc_cruisefees_option_price_format'] = array(
+    '#type' => 'radios',
+    '#title' => t('Option price format'),
+    '#default_value' => variable_get('uc_cruisefees_option_price_format', 'adjustment'),
+    '#options' => array('none' => t('Do not display'),
+      'adjustment' => t('Display price adjustment'),
+      'total' => t('Display total price'),
+    ),
+    '#description' => t('Determines how price variations are displayed to the customer. Prices may be displayed directly next to each attribute option in the attribute selection form either as a total price for the product with that option or as an adjustment (+ or -) showing how that option affects the product base price. Note that the price will always be displayed as an adjustment for attributes that can have multiple options (using checkboxes).'),
+  );
+}
+
+/**
+ * Implements hook_module_implements_alter().
+ *
+ * Ensures that attribute form changes are made after (e.g.) product kits.
+ */
+function uc_cruisefees_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'uc_form_alter') {
+    $group = $implementations['uc_cruisefees'];
+    unset($implementations['uc_cruisefees']);
+    $implementations['uc_cruisefees'] = $group;
+  }
+}
+
+
+
+function uc_cruise_fees_load($nid,$fid=null)
+{
+   $result = db_query("SELECT * FROM {uc_cruiseevent_fees} WHERE cruiseeventid = :ceid ORDER BY weight",array(':ceid' =>$nid));
+   $uclineitems=array();
+   foreach ($result as $uclineitem) {
+     $uclineitems[$uclineitem->id]=$uclineitem;
+   }
+   if(isset($fid)&&$fid!=null)
+   {
+     return $uclineitems[$fid];
+   }
+   else {
+     return $uclineitems; 
+   }
+    
+}
+/**
+*
+ * CruiseFee Line Items
+ * 
+ * 
+ * 
+ */
+function uc_cruisefees_uc_line_item() {
+  
+  $cruiseid=$_SESSION['bookingInput']->itemid;
+$cruiselineitems=uc_cruise_fees_load($cruiseid);
+  foreach ($cruiselineitems as $key => $chargelineitem) {
+    
+  $items[] = array(
+    'id' =>$chargelineitem->name,
+    'title' => t($chargelineitem->name),
+    'weight' =>$chargelineitem->weight,
+    'default' => FALSE,
+    'stored' => TRUE,
+    'add_list' => TRUE,
+    'calculated' => TRUE,
+    'callback' => 'uc_customlineitems_uc_line_item_extra_lineitems',
+    'display_only' => FALSE
+  );
+  }
+  return $items;
+}

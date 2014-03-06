@@ -1,0 +1,5 @@
+name = Employee entity
+description = Creates Employee entity
+core = 7.x
+package = Satya Entity Demos
+

@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/lsnrepo/!svn/ver/32535/fightersonline/trunk/sites/all/modules/rules/includes
+END
+rules.upgrade.inc
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/lsnrepo/!svn/ver/32535/fightersonline/trunk/sites/all/modules/rules/includes/rules.upgrade.inc
+END
+faces.inc
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/lsnrepo/!svn/ver/32535/fightersonline/trunk/sites/all/modules/rules/includes/faces.inc
+END
+rules.core.inc
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/lsnrepo/!svn/ver/32535/fightersonline/trunk/sites/all/modules/rules/includes/rules.core.inc
+END
+rules.plugins.inc
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/lsnrepo/!svn/ver/32535/fightersonline/trunk/sites/all/modules/rules/includes/rules.plugins.inc
+END
+rules.state.inc
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/lsnrepo/!svn/ver/32535/fightersonline/trunk/sites/all/modules/rules/includes/rules.state.inc
+END
+rules.processor.inc
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/lsnrepo/!svn/ver/32535/fightersonline/trunk/sites/all/modules/rules/includes/rules.processor.inc
+END

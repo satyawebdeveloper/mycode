@@ -1,0 +1,14 @@
+<?php
+/**
+ * @file
+ */
+
+/**
+ * Implements hook_views_api().
+ */
+function view_form_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'view_form') . '/views',
+  );
+}

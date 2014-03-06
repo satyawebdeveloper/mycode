@@ -1,0 +1,85 @@
+
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function cruiseimages_schema() {
+	$schema = array ();
+	
+	$schema ['cruiseimages'] = array (
+			'description' => 'The base table for cruiseimages.',
+			'fields' => array (
+					'id' => array (
+							'description' => 'Primary key of the Gift card.',
+							'type' => 'serial',
+							'unsigned' => TRUE,
+							'not null' => TRUE 
+					),
+					'card_id' => array (
+							'description' => 'Card Number',
+							'type' => 'varchar',
+							'length' => 255,
+							'not null' => TRUE,
+							'default' => '' 
+					),
+					'flag' => array (
+							'description' => 'Status of the gift card', // 1 used or 0 unused
+							'type' => 'int',
+							'unsigned' => TRUE,
+							'not null' => TRUE,
+							'default' => 0 
+					),
+					
+					'file_path' => array (
+							'description' => 'file_path',
+							'type' => 'varchar',
+							'length' => 1028,
+							'not null' => TRUE,
+							'default' => '' 
+					),
+					'created' => array (
+							'description' => 'Created Date ',
+							'type' => 'varchar',
+							'length' => 255,
+							'not null' => TRUE,
+							'default' => '' 
+					) 
+			),
+			'primary key' => array (
+					'id' 
+			) 
+	);
+	
+	$schema ['cruiseimages_orders'] = array (
+			'description' => 'The base table for cruiseimages orders.',
+			'fields' => array (
+					'id' => array (
+							'description' => 'Primary key of the Gift card.',
+							'type' => 'serial',
+							'unsigned' => TRUE,
+							'not null' => TRUE 
+					),
+					'orderid' => array (
+							'description' => 'The cruiseimages purchased OrderId',
+							'type' => 'int',
+							'unsigned' => TRUE,
+							'not null' => TRUE,
+							'default' => 0 
+					),
+					'data' => array (
+							'type' => 'blob',
+							'not null' => FALSE,
+							'size' => 'big',
+							'serialize' => TRUE,
+							'description' => 'A serialized object contains of cruiseimages inputs information' 
+					) 
+			),
+			'primary key' => array (
+					'id' 
+			) 
+	);
+	
+	return $schema;
+}
+

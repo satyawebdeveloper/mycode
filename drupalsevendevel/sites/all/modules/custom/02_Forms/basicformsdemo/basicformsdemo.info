@@ -1,0 +1,4 @@
+name = Basic Forms Demo
+description = basic form demos
+core = 7.x
+package = 02_Forms (SATYA)

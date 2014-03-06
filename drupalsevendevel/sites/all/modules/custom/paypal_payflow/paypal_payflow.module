@@ -1,0 +1,246 @@
+<?php
+require_once ('payflow.class.php');
+function paypal_payflow_menu() {
+	$items = array ();
+	
+	//Payment
+	$items ['payflow'] = array (
+			'title' => 'Paypal Payflow',
+			'page callback' => 'payflowpage',
+			'access arguments' => array (
+					'access content' 
+			) 
+	);
+	
+	//Payment Completed
+	$items ['payflowcompleted'] = array (
+			'title' => 'Paypal Payflow Complete',
+			'page callback' => 'payflowcompletepage',
+			'access arguments' => array (
+					'access content' 
+			) 
+	);
+	
+	//Payment Completed
+	$items ['payflowcancel'] = array (
+			'title' => 'Paypal Payflow Complete',
+			'page callback' => 'payflowcancelpage',
+			'access arguments' => array (
+					'access content'
+			)
+	);
+	
+	//Error   Input Params
+	// 1 Error Code  2 Error Message
+	$items ['payflowerror'] = array (
+			'title' => 'Erro in Payflow Transaction',
+			'page callback' => 'payflowerrorpage',
+			'access arguments' => array (
+					'access content'
+			)
+	);
+	
+	return $items;
+}
+
+
+/*
+ * Pay Flow
+ */
+function payflowpage() {
+	
+	$t=uc_order_load(8);
+	var_dump($t);
+	exit();
+	
+	//Set Server Mode
+	$pFObject=new PayFlow();
+	
+	//Set Transaction Type
+	$pFObject->setTransactionType("A");
+	//Server Mode : Sandbox (sand_box) , Live (live)
+	$mode="sand_box";
+	$pFObject->setServerMode($mode);
+	
+	//API Credentials
+// 	$user = "NAP9JLBGY8BBD";
+// 	$vendor = "NAP9JLBGY8BBD";
+// 	$partner = "PayPal";
+// 	$pwd = "lsn@1234";
+
+	$user = "shyamg";
+	$vendor = "shyamg";
+	$partner = "PayPal";
+	$pwd = "5lrbswya";
+	
+	
+	$pFObject->setVendorCredentials($user, $vendor, $partner, $pwd);
+	
+	//Amount
+	$amount=1.78;
+	$amt=number_format($amount, 2, '.', '');
+	$pFObject->setAmount($amt);
+	
+	//Set User Information
+	$fname="Kevin";
+	$lname="Yank";
+	$name=$fname." ".$lname;
+	$city="New York";
+	$state="NY";
+	$street="Street 1";
+	$email="kevin@ymail.com";
+	$phone="234-234-2342";
+	$zip="10001";
+	$country="US";
+	
+	//$reqstr = "&TRXTYPE=A&" . "TENDER=C&" . "INVNUM=" . $invnum . "&AMT=". $this->AMT ."&"."CURRENCY=USD&" . "PONUM=&" . "STREET=&" . "NAME=&" . "CITY=&" . "STATE=&" . "ZIP=&" . "COUNTRY=US&" . "EMAIL=&" . "PHONE=&" . "CREATESECURETOKEN=Y&" . "VERBOSITY=HIGH&" . "SECURETOKENID=" . $secureTokenID;
+	$pFObject->setCustomerInformation($name, $city, $state, $street, $email, $phone, $zip,$country);
+	
+	//Set Order Invoice Number
+	$pFObject->ORDERNUMBER="897692";
+	
+
+	// get the token
+	$tokenResponse = $pFObject->getSecureToken ();
+	
+	
+	$responseCode=$pFObject->getResponseCode($tokenResponse);
+	$responseMessage=$pFObject->getResponseMessage($tokenResponse);
+	if($responseCode=="0"){
+		
+	}else{
+		$path='payflowerror/'.$responseCode.'/'.$responseMessage;
+	    drupal_goto($path);	
+	}
+
+	
+	
+	
+	
+	// strip the response and get the token value
+	$secureToken = $pFObject->getMySecureToken ( $tokenResponse );
+	$pFObject->SECURETOKEN=$secureToken;
+	
+	$pFObject->log_payflow();
+	
+	// parse out the rest of the response
+	$response = $pFObject->parseResponse ( $tokenResponse );
+	
+
+	
+	
+	
+	/*
+	 * {
+RESULT: "0",
+SECURETOKEN: "7AecD3CbCu0EXxUI4BTyhjwQ6",
+SECURETOKENID: "2cf5d8cae921f30f9edb54a98cbb1418",
+RESPMSG: "Approved"
+}
+	 */
+	
+	// build the HTML
+	
+	//$path="https://payflowlink.paypal.com/?SECURETOKEN=".$securetoken."&SECURETOKENID=".$response ['SECURETOKENID']."&MODE=test";
+	
+	
+	
+	//$html = "<form method='post' action='https://payflowlink.paypal.com/'> <input type='hidden' name='SECURETOKEN' value='$securetoken' /> <input type='hidden' name='SECURETOKENID' value='" . $response ['SECURETOKENID'] . "' /> <input type='hidden' name='MODE' value='test' /> <input id='ck' type='submit' value='click' /> </form>";
+	$html = $pFObject->getHTML ( $response, $secureToken );
+	
+	// show the button echo $html;
+	echo $html;
+}
+
+
+/*
+ * Complete Action
+ */
+function payflowcompletepage() {
+	
+	drupal_json_output($_POST);
+	exit();
+		/*
+	 * Payment Completed either by Credit Card or Paypal Account Common Properties for Paypal and Credit Card PNREF , RESULT , AMT , RESPMSG , INVNUM Credit Card ACCT , CARDTYPE
+	 */
+	$html='';
+	// Check Payment done by Credit Card or not
+	if (isset ( $_POST ['RESULT'] ) && $_POST ['RESULT'] == "0") {
+		$transid = $_POST ['PNREF'];
+		$result = $_POST ['RESULT'];
+		$amount = $_POST ['AMT'];
+		$respMsg = $_POST ['RESPMSG'];
+		$invnum = $_POST ['INVNUM'];
+		
+		// Credit Card
+		if (isset ( $_POST ['ACCT'] )) {
+			$last4 = $_POST ['ACCT'];
+			$cardType = $_POST ['CARDTYPE'];
+			// check the card type
+			if ($cardType == "0") {
+				$cardType = "Visa";
+			} else if ($cardType == "1") {
+				$cardType = "Master Card";
+			} else if ($cardType == "2") {
+				$cardType = "Discover";
+			} else if ($cardType == "3") {
+				$cardType = "AMEX";
+			} else {
+				$cardType = "Credit Card";
+			}
+			
+			$html = "<br />Thank you for your payment!<br /><br />Details:<br />Order ID: " .
+					$transid .
+					"<br />Invoice ID: " . $invnum .
+					"<br />Amount: $" . $amount .
+					"<br />Card Type: " . $cardType . "<br />Card Used: ************" . $last4 . "<br />";
+			
+			
+		} else {
+			$html = "<br />Thank you for your payment!<br /><br />Details:<br />Order ID: " .
+					$transid .
+					"<br />Invoice ID: " . $invnum .
+					"<br />Amount: $" . $amount;
+					
+		}
+		// display something based on the RESULT of the Transaction
+		
+	
+	} else {
+		$html = "<br />There seems to have been a problem with your transaction.<br />Transaction Details: " .
+				$respMsg;
+		//do
+	}
+	
+	echo $html;
+
+	
+	
+
+	
+	
+}
+
+
+function payflowcancelpage(){
+	drupal_json_output($_POST);
+	exit();
+	var_dump($_GET);
+	var_dump($_POST);
+	exit();
+	
+}
+
+
+//function payflowerrorpage($code,$msg){
+function payflowerrorpage(){
+	drupal_json_output($_POST);
+	exit();
+	$message="Error Code : ".$code."<br/>";
+	$message.="Message : ". $msg." For more information Read the Paypal Error Codes Documentation";
+	
+	return $message;
+}
+
+?>
+

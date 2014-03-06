@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/lsnrepo/!svn/ver/32771/waterways/trunk/web/sites/all/modules/date/date_repeat_field
+END
+README.txt
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/lsnrepo/!svn/ver/32771/waterways/trunk/web/sites/all/modules/date/date_repeat_field/README.txt
+END
+date_repeat_field.module
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/lsnrepo/!svn/ver/32771/waterways/trunk/web/sites/all/modules/date/date_repeat_field/date_repeat_field.module
+END
+date_repeat_field.info
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/lsnrepo/!svn/ver/32771/waterways/trunk/web/sites/all/modules/date/date_repeat_field/date_repeat_field.info
+END
+date_repeat_field.css
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/lsnrepo/!svn/ver/32771/waterways/trunk/web/sites/all/modules/date/date_repeat_field/date_repeat_field.css
+END
+date_repeat_field.devel_generate.inc
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/lsnrepo/!svn/ver/32771/waterways/trunk/web/sites/all/modules/date/date_repeat_field/date_repeat_field.devel_generate.inc
+END

@@ -1,0 +1,595 @@
+<?php
+function helloworld_menu() {
+	$items = array ();
+	$items ['helloworld'] = array (
+			'title' => 'Hello World',
+			'page callback' => 'helloworldpage',
+			'access arguments' => array (
+					'access content' 
+			) 
+	);
+        
+        
+        $items['testajax_link'] = array(
+    'title' => 'Ajax Link',
+    'page callback' => 'test_render_link',
+    'access callback' => TRUE,
+    
+  );
+        
+	
+	return $items;
+}
+
+function test_render_link() {
+  // drupal_add_library is invoked automatically when a form element has the
+  // '#ajax' property, but since we are not rendering a form here, we have to
+  // do it ourselves.
+  drupal_add_library('system', 'drupal.ajax');
+  $explanation = "
+The link below has the <i>use-ajax</i> class applied to it, so if
+javascript is enabled, ajax.js will try to submit it via an AJAX call instead
+of a normal page load. The URL also contains the '/nojs/' magic string, which
+is stripped if javascript is enabled, allowing the server code to tell by the
+URL whether JS was enabled or not, letting it do different things based on that.";
+  $output = "<div>" . t($explanation) . "</div>";
+  // The use-ajax class is special, so that the link will call without causing
+  // a page reload. Note the /nojs portion of the path - if javascript is
+  // enabled, this part will be stripped from the path before it is called.
+  $link = l(t('Click here'), 'testajax_link', array('attributes' => array('class' => array('use-ajax'))));
+  $output .= "<div id='myDiv'></div><div>$link</div>";
+  return $output;
+}
+
+function test_form() {
+	$form['serial'] = array(
+			'#type' => 'textfield',
+			'#title' => t('serial number'),
+	);
+	$form['submit'] = array (
+			'#type' => 'submit',
+			'#value' => t('Submit'),
+	);
+	$form['#redirect'] = FALSE;
+	$output = drupal_get_form('test_form', $form);
+	return $output;
+}
+
+
+
+
+function helloworldpage() {
+	$op = isset($_POST['op']) ? $_POST['op'] : $callback_arg;
+	
+	switch ($op) {
+		case t('Create new account'):
+		case 'create':
+			$build['user_register'] = drupal_get_form('user_register_form');
+			break;
+		default:
+			if (!empty($_POST['accounts']) && isset($_POST['operation']) && ($_POST['operation'] == 'cancel')) {
+				$build['user_multiple_cancel_confirm'] = drupal_get_form('user_multiple_cancel_confirm');
+			}
+			else {
+				$build['user_filter_form'] = drupal_get_form('user_filter_form');
+				$build['user_admin_account'] = drupal_get_form('user_admin_account');
+			}
+	}
+	return $build;
+	
+	
+	//return drupal_get_form('test_form');
+	
+	//$metaobj= new MetaTag();
+	
+// 	$t=MetaTag::getMetaTagsByID(1);
+// 	var_dump($t);
+// 	exit();
+	
+	
+	
+// 	$metaObj=new MetaTag();
+// 	$metaObj->id=1;
+// 	$metaObj->keywords='test,123';
+// 	$metaObj->setMetaTags($metaObj);
+	
+// 	exit();
+	
+	
+// 	$meta_description = array(
+// 			'#type' => 'html_tag',
+// 			'#tag' => 'meta',
+// 			'#attributes' => array(
+// 					'name' => 'description',
+// 					'content' => 'some description here'
+// 			)
+// 	);
+// 	$meta_keywords = array(
+// 			'#type' => 'html_tag',
+// 			'#tag' => 'meta',
+// 			'#attributes' => array(
+// 					'name' => 'keywords',
+// 					'content' => 'some, keywords'
+// 			)
+// 	);
+// 	drupal_add_html_head( $meta_description, 'meta_description' );
+// 	drupal_add_html_head( $meta_keywords, 'meta_keywords' );
+
+	//$metaObj=new MetaTag();
+	MetaTag:: setMetaTagByKeywords('1');
+	//setMetaTagByKeyword
+	
+
+
+	
+	return drupal_get_form("mymodule_custom_content_block_form");
+// 	exit();
+// 	module_load_include ( 'inc', 'node', 'node.pages' );
+	
+// 	$form = array ();
+	
+// 	$form ['laxmi'] = array (
+			
+// 			'#type' => 'fieldset',
+			
+// 			'#title' => t ( 'Contact
+// settings' ),
+			
+// 			'#weight' => 5,
+			
+// 			'#collapsible' => TRUE,
+			
+// 			'#collapsed' => FALSE 
+// 	)
+// 	;
+	
+// 	$form ['laxmi'] ['subject'] = array (
+			
+// 			'#type' => 'textfield',
+			
+// 			'#title' => t ( 'Subject' ),
+			
+// 			'#default_value' => $node->title,
+			
+// 			'#size' => 60,
+			
+// 			'#maxlength' => 128,
+			
+// 			'#required' => TRUE 
+// 	)
+// 	;
+// 	$form ['laxmi'] ['content'] = node_add ( 'product' );
+// 	$output = drupal_render ( $form );
+	
+	
+	//print $output;
+	
+	// $t=giftcard_used_list();
+	// //$t=giftcard_load_multiple($ids=array(), $conditions=array('flag'=>2));
+	// // $t=giftcard_load($ids=array(), $conditions=array('flag'=>2));
+	// //giftcard_load
+	
+	// //$t=giftcard_load($id=2);
+	
+	// var_dump($t);
+	// exit();
+	
+	// $emp=new stdClass();
+	// $emp->name="satya";
+	// employee_save($emp);
+	// return "hello world";
+}
+
+
+function test_select_form($form, &$form_state){
+	
+	$form['m1']=array();
+	
+}
+
+function mymodule_custom_content_block_form($form_state){
+	
+	$form['font'] = array(
+			'#type' => 'file',
+			'#title' => 'TTF font file',
+	);
+	
+	$form['#attributes'] = array('enctype' => "multipart/form-data");
+	// ...
+	
+	$form['submit'] = array('#type' => 'submit', '#value' => t('Set week N&ordm;') );
+	return $form;
+// 	$form = array();
+// 	$form['custom_content_block_text'] = array(
+// 			'#type' => 'textarea',
+// 			'#title' => t('Block text'),
+// 			'#default_value' => variable_get('mymodule_custom_content_block_text'),
+// 			'#required' => true,
+// 	);
+// 	$form['custom_content_block_image'] = array(
+// 			'#type' => 'file',
+// 			'#name' => 'custom_content_block_image',
+// 			'#title' => t('Block image'),
+// 			'#size' => 40,
+// 			'#description' => t("Image should be less than 400 pixels wide and in JPG format."),
+// 	);
+// 	$form['submit'] = array(
+// 			'#type' => 'submit',
+// 			'#value' => t('Update'),
+// 	);
+// 	return $form;
+}
+
+// function mymodule_custom_content_block_form_submit($form, &$form_state){
+// 	if(isset($form_state['values']['custom_content_block_image'])){
+// 		$validators = array('file_validate_extensions' => array('jpg jpeg'));
+// 		$file = file_save_upload('custom_content_block_image', $validators, 'public://');
+// 		if($file == false){
+// 			drupal_set_message(t("Error saving image."), $type = "error", $repeat = false);
+// 		}
+// 		else{
+// 			$file->status = FILE_STATUS_PERMANENT;
+// 			$file = file_save($file);
+// 		}
+// 	}
+// 	variable_set('mymodule_custom_content_block_text', $form_state['values']['custom_content_block_text']);
+// 	drupal_set_message(t('Custom Content Block has been updated.'));
+// }
+
+
+function date_pic_settings_form_validate($form_id, $form_values)
+{
+	if(!$file=file_check_upload('font') ) {
+		form_set_error('font', t('Font file unavailable!') );
+	}
+}
+
+function date_pic_settings_form_submit($form_id, $form_values)
+{
+	// ...
+	// do something with the filename!
+	$dir = 'files/fonts'; // must be " variable_get('file_directory_path', 'files') . '/fonts' "
+
+	if( file_check_directory( $dir ) ) {
+		$dir .= '/font.ttf'; // not good. to be changed in future
+		$save = file_save_upload('font', $dir, true);
+		if(!$save) {
+			drupal_set_message('ERROR downloading the file to ' . $dir);
+		} else {
+			drupal_set_message('The file: <strong>"' . $save->filename . '"</strong> is successfully uploaded');
+		}
+		variable_set('date_pic_font', $dir . '/' . $file);
+	} else {
+		drupal_set_message( t('WARNING: Server DIR is not accessible. Consult with site admin!', 'status') );
+	}
+	// ...
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Function for generating form
+ */
+function sandbox_ajax_dropdown1($form, &$form_state) {
+	// Province dropdown list
+	$form['sandbox_ajax_dropdown']['province'] = array(
+			'#title' => t('Province'),
+			'#type' => 'select',
+			'#options' => _load_province(),
+			'#ajax' => array(
+					'event'=>'change',
+					'callback' =>'sandbox_ajax_dropdown_city',
+					'wrapper' => 'city-wrapper',
+			),
+	);
+
+
+	// Wrapper for city dropdown list
+	$form['sandbox_ajax_dropdown']['wrapper'] = array(
+			'#prefix' => '<div id="city-wrapper">',
+			'#suffix' => '</div>',
+	);
+
+
+	// Options for city dropdown list
+	$options = array('- Select city -');
+	if (isset($form_state['values']['province'])) {
+		// Pre-populate options for city dropdown list if province id is set
+		$options = _load_city($form_state['values']['province']);
+	}
+
+
+	// Province dropdown list
+	$form['sandbox_ajax_dropdown']['wrapper']['city'] = array(
+			'#title' => t('City'),
+			'#type' => 'select',
+			'#options' => $options,
+	);
+
+
+	// Form submit button
+	$form["sandbox_ajax_dropdown"]["submit"] = array(
+			"#value"  => t("Submit"),
+			"#type"   => "submit",
+			"#submit" => array("sandbox_ajax_dropdown_submit"),
+	);
+
+	return
+	$form;
+}
+
+
+
+
+
+
+
+
+
+function products_manage_delete_confirm($form, &$form_state) {
+// 	if (!isset($form_state['values']['products'])) {
+// 		return;
+// 	}
+	$form['products'] = array('#type' => 'value', '#value' => $form_state['values']['products']);
+	$form['#submit'] = array('products_manage_delete_confirm_submit');
+	return confirm_form($form,
+			t('Are you sure want to delete these products.'),
+			'admin/products',
+			NULL,
+			t('Delete'));
+}
+
+function products_manage_delete_confirm_submit($form, &$form_state) {
+	foreach ($form_state['values']['products'] as $product_id) {
+		delete_product($product_id);
+	}
+
+	drupal_set_message(t('The product has been deleted.'));
+	watchdog('product', 'The product has been deleted.');
+
+	$form_state['redirect'] = 'admin/products';
+}
+
+function products_manage_options_submit($form, &$form_state) {
+	if (!isset($form_state['values']['products']) || !count($form_state['values']['products'])) {
+		return;
+	}
+
+	$operation = $form_state['values']['operation'];
+	$form['products'] = array('#type' => 'value', '#value' => $form_state['values']['products']);
+
+	switch ($operation) {
+		case 'delete':
+			return drupal_get_form('products_manage_delete_confirm');
+			break;
+	}
+}
+
+
+
+
+
+
+
+/**
+ * Form builder; Return form for user administration filters.
+ *
+ * @ingroup forms
+ * @see user_filter_form_submit()
+ */
+
+function user_filter_formss() {
+	$session = isset($_SESSION['user_overview_filter']) ? $_SESSION['user_overview_filter'] : array();
+	$filters = user_filters();
+
+	$i = 0;
+	$form['filters'] = array(
+			'#type' => 'fieldset',
+			'#title' => t('Show only users where'),
+			'#theme' => 'exposed_filters__user',
+	);
+	foreach ($session as $filter) {
+		list($type, $value) = $filter;
+		if ($type == 'permission') {
+			// Merge arrays of module permissions into one.
+			// Slice past the first element '[any]' whose value is not an array.
+			$options = call_user_func_array('array_merge', array_slice($filters[$type]['options'], 1));
+			$value = $options[$value];
+		}
+		else {
+			$value = $filters[$type]['options'][$value];
+		}
+		$t_args = array('%property' => $filters[$type]['title'], '%value' => $value);
+		if ($i++) {
+			$form['filters']['current'][] = array('#markup' => t('and where %property is %value', $t_args));
+		}
+		else {
+			$form['filters']['current'][] = array('#markup' => t('%property is %value', $t_args));
+		}
+	}
+
+	$form['filters']['status'] = array(
+			'#type' => 'container',
+			'#attributes' => array('class' => array('clearfix')),
+			'#prefix' => ($i ? '<div class="additional-filters">' . t('and where') . '</div>' : ''),
+	);
+	$form['filters']['status']['filters'] = array(
+			'#type' => 'container',
+			'#attributes' => array('class' => array('filters')),
+	);
+	foreach ($filters as $key => $filter) {
+		$form['filters']['status']['filters'][$key] = array(
+				'#type' => 'select',
+				'#options' => $filter['options'],
+				'#title' => $filter['title'],
+				'#default_value' => '[any]',
+		);
+	}
+
+	$form['filters']['status']['actions'] = array(
+			'#type' => 'actions',
+			'#attributes' => array('class' => array('container-inline')),
+	);
+	$form['filters']['status']['actions']['submit'] = array(
+			'#type' => 'submit',
+			'#value' => (count($session) ? t('Refine') : t('Filter')),
+	);
+	if (count($session)) {
+		$form['filters']['status']['actions']['undo'] = array(
+				'#type' => 'submit',
+				'#value' => t('Undo'),
+		);
+		$form['filters']['status']['actions']['reset'] = array(
+				'#type' => 'submit',
+				'#value' => t('Reset'),
+		);
+	}
+
+	drupal_add_library('system', 'drupal.form');
+
+	return $form;
+}
+
+/**
+ * Process result from user administration filter form.
+ */
+function user_filter_form_submits($form, &$form_state) {
+	$op = $form_state['values']['op'];
+	$filters = user_filters();
+	switch ($op) {
+		case t('Filter'):
+		case t('Refine'):
+			// Apply every filter that has a choice selected other than 'any'.
+			foreach ($filters as $filter => $options) {
+				if (isset($form_state['values'][$filter]) && $form_state['values'][$filter] != '[any]') {
+					// Merge an array of arrays into one if necessary.
+					$options = ($filter == 'permission') ? form_options_flatten($filters[$filter]['options']) : $filters[$filter]['options'];
+					// Only accept valid selections offered on the dropdown, block bad input.
+					if (isset($options[$form_state['values'][$filter]])) {
+						$_SESSION['user_overview_filter'][] = array($filter, $form_state['values'][$filter]);
+					}
+				}
+			}
+			break;
+		case t('Undo'):
+			array_pop($_SESSION['user_overview_filter']);
+			break;
+		case t('Reset'):
+			$_SESSION['user_overview_filter'] = array();
+			break;
+		case t('Update'):
+			return;
+	}
+
+	$form_state['redirect'] = 'admin/people';
+	return;
+}
+
+
+function user_admin_accounts() {
+
+	$header = array(
+			'username' => array('data' => t('Username'), 'field' => 'u.name'),
+			'status' => array('data' => t('Status'), 'field' => 'u.status'),
+			'roles' => array('data' => t('Roles')),
+			'member_for' => array('data' => t('Member for'), 'field' => 'u.created', 'sort' => 'desc'),
+			'access' => array('data' => t('Last access'), 'field' => 'u.access'),
+			'operations' => array('data' => t('Operations')),
+	);
+
+	$query = db_select('users', 'u');
+	$query->condition('u.uid', 0, '<>');
+	user_build_filter_query($query);
+
+	$count_query = clone $query;
+	$count_query->addExpression('COUNT(u.uid)');
+
+	$query = $query->extend('PagerDefault')->extend('TableSort');
+	$query
+	->fields('u', array('uid', 'name', 'status', 'created', 'access'))
+	->limit(50)
+	->orderByHeader($header)
+	->setCountQuery($count_query);
+	$result = $query->execute();
+
+	$form['options'] = array(
+			'#type' => 'fieldset',
+			'#title' => t('Update options'),
+			'#attributes' => array('class' => array('container-inline')),
+	);
+	$options = array();
+	foreach (module_invoke_all('user_operations') as $operation => $array) {
+		$options[$operation] = $array['label'];
+	}
+	$form['options']['operation'] = array(
+			'#type' => 'select',
+			'#title' => t('Operation'),
+			'#title_display' => 'invisible',
+			'#options' => $options,
+			'#default_value' => 'unblock',
+	);
+	$options = array();
+	$form['options']['submit'] = array(
+			'#type' => 'submit',
+			'#value' => t('Update'),
+	);
+
+	$destination = drupal_get_destination();
+
+	$status = array(t('blocked'), t('active'));
+	$roles = array_map('check_plain', user_roles(TRUE));
+	$accounts = array();
+	foreach ($result as $account) {
+		$users_roles = array();
+		$roles_result = db_query('SELECT rid FROM {users_roles} WHERE uid = :uid', array(':uid' => $account->uid));
+		foreach ($roles_result as $user_role) {
+			$users_roles[] = $roles[$user_role->rid];
+		}
+		asort($users_roles);
+
+		$options[$account->uid] = array(
+				'username' => theme('username', array('account' => $account)),
+				'status' =>  $status[$account->status],
+				'roles' => theme('item_list', array('items' => $users_roles)),
+				'member_for' => format_interval(REQUEST_TIME - $account->created),
+				'access' =>  $account->access ? t('@time ago', array('@time' => format_interval(REQUEST_TIME - $account->access))) : t('never'),
+				'operations' => array('data' => array('#type' => 'link', '#title' => t('edit'), '#href' => "user/$account->uid/edit", '#options' => array('query' => $destination))),
+		);
+	}
+
+	$form['accounts'] = array(
+			'#type' => 'tableselect',
+			'#header' => $header,
+			'#options' => $options,
+			'#empty' => t('No people available.'),
+	);
+	$form['pager'] = array('#markup' => theme('pager'));
+
+	return $form;
+}
+?>
+
+
+
+
+
+
+
