@@ -1,0 +1,687 @@
+::selection{
+        color: #FFF;
+        background-color: #777777;
+}
+
+::-webkit-scrollbar
+{
+        width: 5px;  /* for vertical scrollbars */
+        height: 10px; /* for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track
+{
+        background: rgba(0, 0, 0, 0.4);
+}
+
+::-webkit-scrollbar-thumb
+{
+        background: rgba(0, 0, 0, .5);
+}
+
+.responsiveMobile
+{
+    display:none ;
+}
+
+.responsiveWeb
+{
+    display:block ;
+}
+
+.navbar .logo { 
+  margin-top: 15px;
+  margin-right: 10px;
+  min-height: 68px;
+}
+.navbar .nav{
+    margin: 0px !important;
+}
+.navbar .nav.pull-right{
+    margin-top: 20px;
+}
+
+#site-name {
+  line-height: 1;
+  margin: 0;
+}
+
+.submitted {
+  margin-bottom: 1em;
+  font-style: italic;
+  font-weight: normal;
+  color: #777;
+}
+
+.footer {
+  margin-top: 45px;
+  padding: 35px 0 36px;
+  border-top: 1px solid #E5E5E5;
+}
+
+ul.action-links {
+  margin-bottom: 2em;
+}
+
+ul.action-links li {
+  display: inline;
+  padding-right: 1.5em;
+}
+
+ul.action-links [class^="icon-"],
+ul.action-links [class*=" icon-"] {
+  padding-right: .5em;
+}
+
+/**
+ * Admin Styling
+ */
+
+/* Fix Toolbar for .navbar-fixed-top */
+body.toolbar .navbar-fixed-top {
+ top: 30px;
+}
+
+body.toolbar-drawer .navbar-fixed-top {
+ top: 65px;
+}
+
+html.overlay-open .navbar-fixed-top {
+  z-index: 400;
+}
+
+/*
+ * nav-bar override CSS
+ *
+ */
+.navbar-fixed-top, .navbar-fixed-bottom{
+    position: static !important;
+}
+.navbar-fixed-top .navbar-inner, .navbar-static-top .navbar-inner{
+    box-shadow: none !important;
+}
+
+.navbar-inner{
+    background-color: #FFF !important;
+    background-image: none !important;
+    border-bottom: 0px !important;
+    box-shadow: none !important;
+}
+
+.navbar{
+    margin-bottom: 0px !important;
+}
+
+.navbar .navbar-inner .block h2 {
+    display: none;
+}
+
+.breadcrumb{
+    margin: 20px 0 20px 0px !important;
+}
+
+/**
+ * Search form stylings.
+ */
+
+.region-navigation form#search-block-form {
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+fieldset.search-advanced {
+  padding-bottom: 1.5em;
+  margin-top: 1em;
+}
+
+/* Admin toolbar fix */
+body.admin-expanded.admin-vertical.admin-nw .navbar,
+body.admin-expanded.admin-vertical.admin-sw .navbar {
+  margin-left: 260px;
+}
+
+div#admin-toolbar {
+  z-index: 500;
+}
+
+/* Admin_menu fix */
+#admin-menu {
+  z-index: 1100;
+  position: fixed; 
+}
+
+body.admin-menu .navbar-fixed-top {
+  top: 30px; 
+}
+
+#admin-menu .dropdown li {
+  line-height: normal;
+} 
+
+/* System base fix */
+.container-inline div, .container-inline label {
+  display: block;
+}
+
+/* Default form fields to auto */
+input, textarea, select, .uneditable-input {
+  /*width:auto;*/
+}
+
+/* Default textfield styles inside vertical tabs */
+.vertical-tabs .form-type-textfield input {
+  -moz-box-sizing: inherit;
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit;
+  width: auto;
+}
+
+/* Vertical tabs form elements alighment */
+.vertical-tabs .form-item{
+  margin: 1em 0;
+}
+
+/* Collapsible field groups fix */
+html.js fieldset.collapsed {
+ height: auto;
+}
+
+/* throbber fix */
+html.js input.form-autocomplete {
+  background-position: 100% 8px; /* LTR */
+  background-repeat: no-repeat;
+}
+
+html.js input.throbbing {
+  background-position: 100% -13px; /* LTR */
+}
+
+.navbar-search .control-group {
+  margin-bottom:0px;
+}
+
+input.error {
+  color: #B94A48;
+  border-color: #B94A48;
+}
+
+/**
+ * Password strength indicator.
+ */
+.password-strength {
+  width: 17em;
+  float: right;  /* LTR */
+  margin-top: 1.4em;
+}
+
+.password-strength-title {
+  display: inline;
+}
+
+.password-strength-text {
+  float: right; /* LTR */
+  font-weight: bold;
+}
+
+.password-indicator {
+  background-color: #C4C4C4;
+  height: 0.3em;
+  width: 100%;
+}
+
+.password-indicator div {
+  height: 100%;
+  width: 0%;
+  background-color: #47C965;
+}
+
+input.password-confirm,
+input.password-field {
+  width: 16em;
+  margin-bottom: 0.4em;
+}
+
+div.password-confirm {
+  float: right;  /* LTR */
+  margin-top: 1.5em;
+  visibility: hidden;
+  width: 17em;
+}
+
+div.form-item div.password-suggestions {
+  padding: 0.2em 0.5em;
+  margin: 0.7em 0;
+  width: 38.5em;
+  border: 1px solid #B4B4B4;
+}
+
+div.password-suggestions ul {
+  margin-bottom: 0;
+}
+
+.confirm-parent,
+.password-parent {
+  clear: left; /* LTR */
+  margin: 0;
+  width: 36.3em;
+}
+/* added an extra clear both in the situation the form actions is preceded by an badly wrapped float element and they overlap
+e.g. multipage*/
+
+.form-actions{
+  clear: both;
+}
+
+
+/* Transparent Loader CSS Starts from here */
+
+#transparentLoader{
+    position: fixed;
+    z-index: 1000;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    background: url('../assets/img/transperant-80.png') repeat;
+}
+
+.transparentLoaderHolder{
+    position: absolute;
+    top: 46%;
+    left: 48%;
+    z-index: 1001;
+    width: 54px;
+    height: 55px;
+    background: url('../assets/img/31.gif') no-repeat center;
+}
+
+#loaderText{
+    width: 50px;
+    height: 30px;
+    color: #333;
+}
+
+/* Transparent Loader CSS Ends here */
+
+/* 
+ * -----------------------------------------------
+ * Header Styles
+ */
+
+.contentbox-inner {
+    margin: 0 auto;
+    width: 1000px;
+}
+
+header{
+        background-color:#FFF;
+        min-height:45px;
+}
+.custom-container{
+        max-width:1170px;
+        margin:0px auto;
+}
+.custom-container-nav{
+        max-width:1210px;
+        margin:0px auto;
+
+}
+.BrandLogo{
+        padding:18px 0px !important;
+}
+header .custom-container li{
+        padding-left:20px;
+        padding-top:30px;
+}
+.admin-profile{
+        font-size:1em;
+        text-align:right;
+}
+.admin-profile li{
+        display:inline-block;
+        text-align:right;
+}
+.admin-profile .logout-btn{
+        background:none;
+        border:none;
+        color:#00529b;
+        font-size:1em;
+        margin-top: -6px;
+}
+.navbar-inverse .navbar-inner{
+        background:#918f8c !important;
+        border-radius:0px;
+        border-top:1px solid #c5aa82 !important;
+        border-bottom:1px solid #c5aa82 !important;
+        border-right:0px;
+        border-left:0px;
+}
+.custom-container-nav .nav li a{
+        text-transform:uppercase;
+        color:#f6f6f6 !important;
+        text-shadow:none !important;
+        /*font-size: 18px;*/
+        line-height: 20px;
+        float: none;
+        font-family: inherit;
+        font-size: 13px;
+}
+.custom-container-nav .nav li a:hover{
+        line-height: 20px;
+        float: none;
+        font-family: inherit;
+        font-size: 13px;
+}
+.navbar .nav > li > a{
+        padding:10px 19px 10px 19px !important;
+}
+.dropdown-menu li a{
+        color: #f6f6f6 !important;
+        font-size:.8em;
+}
+.navbar-inverse .nav li.dropdown>a .caret{
+        border-top-color: #fff !important;
+        border-bottom-color: #fff !important;
+}
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus, .dropdown-submenu:hover>a, .dropdown-submenu:focus>a{
+        color:#FFF !important;
+}
+
+.nav-tabs > li, .nav-pills > li{
+        display:inline-block !important;
+        float:right !important;
+}
+.navbar-inverse .nav > li > a:focus, .navbar-inverse .nav > li > a:hover{
+        background-color:#454444 !important;
+}
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus, .dropdown-submenu:hover > a, .dropdown-submenu:focus > a{
+        background:#454444 !important;
+}
+.navbar-inverse .nav li.dropdown.open > .dropdown-toggle,
+.navbar-inverse .nav li.dropdown.active > .dropdown-toggle,
+.navbar-inverse .nav li.dropdown.open.active > .dropdown-toggle {
+        color: #f6f6f6 !important;
+        background-color: #454444 !important;
+}
+.dropdown-menu > li > a{
+        font-size: 14px;
+        padding:8px 20px !important;
+}
+.navbar-inner{
+        padding-left:0px !important;
+        padding-right:0px !important;
+}
+.navbar .nav > li > .dropdown-menu:after{
+        display:none !important;
+}
+.navbar .nav > li > .dropdown-menu:before{
+        display:none !important;
+}
+.nav-collapse .nav > li > a, .nav-collapse .dropdown-menu a{
+        border-radius:0px !important;
+}
+.dropdown-menu{
+        margin-top: 0px !important;
+        border-radius: 0px !important;
+/*        border-left: 1px solid #dfceb6 !important;
+        border-right: 1px solid #dfceb6 !important;
+        border-bottom: 1px solid #dfceb6 !important;*/
+        padding: 0px !important;
+        left: 0px;
+        background: #918f8c !important;
+        box-shadow: none;
+}
+
+.booknowMargin
+{
+    margin-left:0.9% !important;
+}
+.booknow
+{
+    width: 98%;
+    background-color:#ab323b;
+    float:right;
+    height:27px;
+    padding:2px 3px 2px 2px;
+}
+
+.booknow:hover{
+    background-color: #772328;
+}
+
+.booknow a:hover{
+    color: #fcfbf9;
+}
+
+.booknow-inner:hover{
+    border-color: #fcfbf9;
+    background-color: #772328;
+}
+
+.view-featured-button:hover{
+    background-color: #772328;
+}
+
+.view-featured-button a:hover{
+    color: #fcfbf9;
+}
+
+.view-featured-button-inner:hover{
+    border-color: #fcfbf9;
+    background-color: #772328;
+}
+
+.booknow a
+{
+    text-decoration:none;
+}
+.booknow-inner
+{
+    width:97%;
+    background-color:#ab323b;
+    margin:0px;
+    line-height:25px;
+    color:#ffffff;
+    font-family:georgia;
+    font-size:16px;
+    text-align:center;	
+    border:#f1dddf 1px dotted;
+    display: block;
+    cursor: pointer;
+    padding: 0% 1%;
+}
+
+.line
+{
+    height: 1px;
+    width: 100%;
+    margin-top: 8%;
+    background: #bc9b6a;
+}
+
+/* WWCCalendar Styles */
+.calendarHeader {
+    width: 85%;
+}
+
+.mainCalendar #cruiseCalendarleft {
+    display: none;
+}
+
+.mainCalendar #cruiseCalendar, .calendarTitlemargin {
+    max-width: 1000px;
+}
+
+.mainCalendar #cruiseCalendarright {
+    display: none;
+}
+
+#CruisecalendarPrevious, #CruisecalendarNext {
+    display: none;
+}
+
+#cruiseCalendar table.calendar{
+    width: 100%;
+}
+
+.calendar-row .calendar-day-head{
+    background-color: transparent;
+}
+
+.modal-backdrop{
+    background-color: #FFF;
+}
+
+.cruiseKey{
+    margin-right: 7%;
+}
+
+/* Order Edit Form Styles */
+#order-pane-cruiseeventpane, 
+#order-pane-eventcalendar, 
+#order-pane-cruiseeventagent, 
+#order-pane-cruiseeventspecialcomments, 
+#order-pane-ship_to, 
+#order-pane-bill_to, 
+#order-pane-customer,
+#order-pane-payment{
+    width: 47.3%;
+}
+
+#order-pane-cruiseeventpane .form-item{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+#order-pane-cruiseeventpane .form-item label{
+    width: 25%;
+    float: left;
+    display: inline;
+}
+
+#order-pane-cruiseeventpane .form-item input[type="text"]{
+    padding: 6px;
+    margin: 0px;
+    border: 0px;
+    background: transparent;
+    box-shadow: none;
+}
+
+#order-pane-line_items .form-wrapper{
+    width: 46%;
+}
+
+#order-pane-line_items .form-wrapper .form-type-select{
+    margin-top: 0px;
+    width: 70%;
+    margin-right: 0px;
+}
+
+#order-pane-line_items .form-wrapper label{
+    width: 28%;
+    float: left;
+}
+
+.colorpicker input[type="text"]{
+    padding: 0px;
+    width: auto !important;
+    top: 0px;
+}
+
+#cruisetickets-list-form .control-group{
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+/* Staffadmin Add Cruise page alignments */
+.menuWrapperContent .fieldset-wrapper label{
+	width: 140px;
+	float: left;
+}
+
+.menuWrapperContent .fieldset-wrapper .controls .form-textarea{
+	width: 220px;
+}
+
+.menuWrapperContent .fieldset-wrapper .controls .grippie{
+	display: none;
+}
+
+.menuWrapperContent .fieldset-wrapper button{
+	margin-left: 140px;
+	margin-bottom: 10px;
+}
+
+/* Ubercart Orders CSS Styles. */
+/*#order-pane-quotes{
+ display: none;
+}
+
+#order-pane-admin_comments{
+ display: none;
+}*/
+
+/*Surseh Style Start here*/
+.blogInner
+{
+    width: 85%;
+    background: #fcfbf9;
+    padding: 9%;
+    float: left;
+    margin-bottom: 2%;
+}
+
+.blogInner .content h2 a{
+    font-weight: bold;
+    font-size: 30px;
+    color:#00529b;
+    text-transform: uppercase;
+}
+
+.blogInner .content h2{
+    margin-top: 10px;
+}
+
+.contentbox-inner {
+    margin: 0 auto;
+    width: 100%;    
+ max-width: 1000px;
+}
+/*Surseh Style end here*/
+
+#mediaBrowser{
+	width: 770px !important;
+}
+
+
+
+@media (min-width: 979px) and (max-width: 1160px){
+	.navbar .nav > li > a{
+		padding: 10px 12px 10px 12px !important;
+	}
+	.input-medium{
+		width: 134px;
+	}
+}
+
+@media(min-width: 980px) {
+  body {
+    /*padding-top: 60px;*/
+  }
+  body.toolbar {
+    padding-top: 40px !important;
+  }
+
+  body.toolbar-drawer {
+    padding-top: 129px !important;
+  }
+}
+
+@media(max-width: 979px) {
+  .region-navigation form#search-block-form {
+    float: none;
+  }
+}
+
+
+

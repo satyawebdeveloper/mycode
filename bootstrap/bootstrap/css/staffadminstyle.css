@@ -1,0 +1,12 @@
+@CHARSET "ISO-8859-1";
+
+ul.breadcrumb, .profile, .breadcrumb, .nav-tabs, .location-wrapper, .form-item-path-alias{
+	display: none;
+}
+
+/*
+ * text formate hiding
+ */
+.filter-wrapper{
+	display: none;
+}
