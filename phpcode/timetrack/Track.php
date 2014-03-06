@@ -1,4 +1,72 @@
+
+<div style="margin-left:50px;">
 <?php
+// $currentDate=date('Y-m-d h:i a');
+
+// $date = new DateTime($currentDate, new DateTimeZone('Europe/Paris'));
+// //date_default_timezone_set('America/New_York');
+// echo date("Y-m-d h:i A", $date->format('U'));
+
+// exit();
+date_default_timezone_set("Asia/Calcutta");
+$t1=strtotime(date('d-m-Y h:i a',"06-03-2014 12:00 PM"));
+$t2=strtotime(date('d-m-Y h:i a',"07-03-2014 01:00 PM"));
+
+
+
+$datetime1 = new DateTime("2014-03-07 23:00");
+$datetime2 = new DateTime("2014-03-06 16:00");
+$interval = $datetime1->diff($datetime2);
+$hours   = $interval->format('%h');
+$minutes = $interval->format('%i');
+//echo 'Diff. in minutes is: '.($hours * 60 + $minutes);
+
+echo $hours.':'.$minutes;
+//7:0
+
+exit();
+
+
+
+date_default_timezone_set("Asia/Calcutta");
+echo "India Date N Time :".date('d-m-Y h:i a',time());
+//India Date N Time :06-03-2014 07:31 pm
+
+date_default_timezone_set("America/New_York");
+echo "<br/> America Newyork Date N Time :".date('d-m-Y h:i a',time());
+//America Newyork Date N Time :06-03-2014 09:01 am
+
+
+
+
+//echo date_default_timezone_get();
+exit();
+
+?>
+<p>
+   for different timezone refer
+   <a href="http://www.php.net/manual/en/timezones.php" target="_blank">PHP TimeZone</a>
+</p>
+</div>
+
+<?php 
+
+$startDate=date("d-m-Y","07-03-2014"); //2014-01-31
+$unixtmstmp=strtotime($startDate);
+
+
+echo @$unixtmstmp;
+exit();
+
+
+
+$difference = strtotime() - strtotime($now);
+$hours = $difference / 3600; // 3600 seconds in an hour
+$minutes = ($hours - floor($hours)) * 60;
+$final_hours = round($hours,0);
+$final_minutes = round($minutes);
+
+
 
 if(isset($_GET['gettime'])){
 	echo @date('d-m-Y h:i:a',time());
